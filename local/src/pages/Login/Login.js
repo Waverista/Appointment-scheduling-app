@@ -6,7 +6,6 @@ function Login() {
     <div className='login template d-flex justify-content-center align-items-center 100-w vh-100 bg-success'>
         <div className='50-w p-5 rounded bg-white'>
         <form>
-        <h1 className="display-4 mt-5 text-danger">Hello, Bootstrap!</h1>
             <h3 className='text-center'>Sign In</h3>
             <div className='mb-3'>
                 <label htmlFor='email'>Email</label>
