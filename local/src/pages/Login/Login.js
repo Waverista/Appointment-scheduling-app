@@ -52,8 +52,15 @@ function Login() {
       }
 
       const { accessToken, refreshToken } = res.data;
-      setUser({ accessToken: accessToken, refreshToken: refreshToken });
-      sessionStorage.setItem("accessToken", JSON.stringify(accessToken));
+      setUser({
+        userType: userType,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      });
+
+      sessionStorage.setItem("accessToken", accessToken);
+      sessionStorage.setItem("refreshToken", refreshToken);
+      sessionStorage.setItem("userType", userType);
       setToken(sessionStorage.getItem("accessToken"));
 
       Swal.fire({
@@ -91,7 +98,7 @@ function Login() {
           opacity: ".1",
         }}
       />
-      <div className="50-w p-5 rounded bg-white">
+      <div className="50-w p-5 rounded bg-white" style={{ zIndex: "10" }}>
         <form onSubmit={handleSignIn}>
           <div className="text-center">
             <img
