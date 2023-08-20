@@ -127,7 +127,7 @@ const appointmentsLst = [
 
 const Appointments = () => {
   // const { user } = useContext(ProviderContext);
-  const [userType, setUserType] = useState(sessionStorage.getItem("userType"));
+  const [userType] = useState(sessionStorage.getItem("userType"));
 
   if (userType === "job-seeker") {
     return (

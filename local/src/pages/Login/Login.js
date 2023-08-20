@@ -97,6 +97,7 @@ function Login() {
           width: "550px",
           opacity: ".1",
         }}
+        alt="logo"
       />
       <div className="50-w p-5 rounded bg-white" style={{ zIndex: "10" }}>
         <form onSubmit={handleSignIn}>
@@ -108,6 +109,7 @@ function Login() {
                 borderRadius: "100px",
                 width: "150px",
               }}
+              alt="logo"
             />
           </div>
           <h3 className="text-center">Sign In</h3>
