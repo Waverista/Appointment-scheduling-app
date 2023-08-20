@@ -2,6 +2,8 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import logo from "../../assets/logo/1.png";
+
 import { ProviderContext } from "../../components/Provider/Provider";
 
 function Login() {
@@ -16,14 +18,6 @@ function Login() {
     e.preventDefault();
 
     try {
-      // const res = await axios.post(
-      //   "http://localhost:4000/authentication/admin/login",
-      //   {
-      //     email,
-      //     password,
-      //   }
-      // );
-
       let res;
       if (userType === "admin") {
         console.log("admin");
@@ -84,10 +78,32 @@ function Login() {
   };
   return (
     <div className="login template d-flex justify-content-center align-items-center 100-w vh-100 bg-success">
+      <img
+        src={logo}
+        style={{
+          position: "fixed",
+          transform: "rotate(-20deg)",
+          bottom: "-50px",
+          right: "-55px",
+          marginBottom: "-20px",
+          borderRadius: "12px",
+          width: "550px",
+          opacity: ".1",
+        }}
+      />
       <div className="50-w p-5 rounded bg-white">
         <form onSubmit={handleSignIn}>
+          <div className="text-center">
+            <img
+              src={logo}
+              style={{
+                marginBottom: "-20px",
+                borderRadius: "100px",
+                width: "150px",
+              }}
+            />
+          </div>
           <h3 className="text-center">Sign In</h3>
-          <br />
           <br />
           <div className="mb-3 d-flex justify-content-start">
             <div className="">

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import logo from "../../assets/logo/1.png";
 
 function Register() {
   const navigate = useNavigate();
@@ -96,10 +97,32 @@ function Register() {
 
   return (
     <div className="register template d-flex justify-content-center align-items-center 100-w vh-100 bg-success">
-      <div className="50-w p-5 rounded bg-white">
+      <img
+        src={logo}
+        style={{
+          position: "fixed",
+          transform: "rotate(-20deg)",
+          bottom: "-50px",
+          right: "-55px",
+          marginBottom: "-20px",
+          borderRadius: "12px",
+          width: "550px",
+          opacity: ".1",
+        }}
+      />
+      <div className="50-w p-5 rounded bg-white" style={{ zIndex: "10" }}>
         <form onSubmit={handleSignUp}>
+          <div className="text-center">
+            <img
+              src={logo}
+              style={{
+                marginBottom: "-20px",
+                borderRadius: "100px",
+                width: "150px",
+              }}
+            />
+          </div>
           <h3 className="text-center">Sign Up</h3>
-          <br />
           <br />
           <div className="mb-3 d-flex justify-content-start">
             <div className="">
