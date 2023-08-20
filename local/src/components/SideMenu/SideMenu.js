@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoLogOut } from "react-icons/io5";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import logo from "../../assets/logo/1.png";
+import { ProviderContext } from "../Provider/Provider";
 import "./SideMenu.css";
 import { sideNavigationLinks } from "./navigationLinks";
 
 function SideMenu({ mainBg }) {
+  const navigate = useNavigate();
+  const { setUser, setToken } = useContext(ProviderContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -21,6 +25,34 @@ function SideMenu({ mainBg }) {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+  };
+
+  const logout = () => {
+    try {
+      sessionStorage.clear();
+      setToken(null);
+      setUser({
+        accessToken: "",
+        refreshToken: "",
+      });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: "Logout successful. Have a great day!",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Oops! Something went wrong during the logout process. Please try again.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
   };
 
   return (
@@ -79,10 +111,10 @@ function SideMenu({ mainBg }) {
         <div className="bottom-content">
           <li className="mb-5">
             <Link
-              to="/"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               style={{ backgroundColor: isHovered ? "#31d186" : "#198754" }}
+              onClick={logout}
             >
               <IoLogOut
                 className="logout-icon-css"
