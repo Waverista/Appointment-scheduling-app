@@ -6,6 +6,8 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRouteInverse from "../utils/PrivateRouteInverse";
 import PrivateRoutes from "../utils/PrivateRoutes";
+import UserProfile from "../pages/User-profile/UserProfile";
+import Consultant from "../pages/Consultants/Consultant";
 
 function Router() {
   const routes = [
@@ -25,6 +27,22 @@ function Router() {
           element: (
             <SideMenuLayout>
               <Appointments />
+            </SideMenuLayout>
+          ),
+        },
+        {
+          path: "/Consultant",
+          element: (
+            <SideMenuLayout>
+              <Consultant />
+            </SideMenuLayout>
+          ),
+        },
+        {
+          path: "/UserProfile",
+          element: (
+            <SideMenuLayout>
+              <UserProfile />
             </SideMenuLayout>
           ),
         },
