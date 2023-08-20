@@ -87,9 +87,9 @@ function Register() {
       Swal.fire({
         position: "center",
         icon: "error",
-        text: "Registration Failed.",
+        text: "Registration Error! User already exists or server issue. Please try again later.",
         showConfirmButton: false,
-        timer: 5000,
+        timer: 3000,
       });
     }
   };
