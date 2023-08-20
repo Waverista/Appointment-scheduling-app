@@ -115,7 +115,7 @@ const Appointments = () => {
       <h1 style={{ color: "#198754", fontWeight: "900" }}>Appointments</h1>
       <br />
       <br />
-      <table class="table table-striped">
+      <table className="table table-striped">
         <thead>
           <tr>
             <th scope="col">Appointment No</th>
@@ -155,7 +155,7 @@ const Appointments = () => {
               </td>
               <td style={{ textAlign: "center" }}>
                 <div className="flex">
-                  <button type="button" class="btn btn-danger">
+                  <button type="button" className="btn btn-danger">
                     Delete
                   </button>
                 </div>

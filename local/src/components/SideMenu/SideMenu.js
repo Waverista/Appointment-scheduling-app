@@ -60,7 +60,7 @@ function SideMenu({ mainBg }) {
         <div className="menu">
           <ul className="menu-links p-0">
             {sideNavigationLinks.map((item) => (
-              <li className="nav-link">
+              <li key={item.title} className="nav-link">
                 <Link
                   to={item.to}
                   className=""
