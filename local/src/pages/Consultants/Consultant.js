@@ -27,7 +27,7 @@ export default function Consultant() {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="success">
-          Book
+          View
         </Button>
       </CardActions>
     </Card><Card sx={{ maxWidth: 345 }}>
@@ -48,7 +48,7 @@ export default function Consultant() {
         </CardActionArea>
         <CardActions>
           <Button size="small" color="success">
-            Book
+            View
           </Button>
         </CardActions>
       </Card></>
