@@ -1,17 +1,35 @@
 import { useContext, useState } from "react";
 import { IoLogOut } from "react-icons/io5";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import logo from "../../assets/logo/1.png";
 import { ProviderContext } from "../Provider/Provider";
 import "./SideMenu.css";
-import { sideNavigationLinks } from "./navigationLinks";
+import {
+  sideNavigationAdminLinks,
+  sideNavigationConsultantLinks,
+  sideNavigationJSeekerLinks,
+} from "./navigationLinks";
 
 function SideMenu({ mainBg }) {
   const navigate = useNavigate();
   const { setUser, setToken } = useContext(ProviderContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [userType] = useState(sessionStorage.getItem("userType"));
+  let navLinksLst;
+
+  if (userType === "admin") {
+    navLinksLst = sideNavigationAdminLinks;
+  }
+
+  if (userType === "job-seeker") {
+    navLinksLst = sideNavigationJSeekerLinks;
+  }
+
+  if (userType === "consultant") {
+    navLinksLst = sideNavigationConsultantLinks;
+  }
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -91,9 +109,9 @@ function SideMenu({ mainBg }) {
       <div className="menu-bar">
         <div className="menu">
           <ul className="menu-links p-0">
-            {sideNavigationLinks.map((item) => (
+            {navLinksLst.map((item) => (
               <li key={item.title} className="nav-link">
-                <Link
+                <NavLink
                   to={item.to}
                   className=""
                   style={{ zIndex: "10", width: "max" }}
@@ -102,7 +120,7 @@ function SideMenu({ mainBg }) {
                   {!isSidebarOpen && (
                     <span className="nav-text ml-5">{item.title}</span>
                   )}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -110,7 +128,7 @@ function SideMenu({ mainBg }) {
 
         <div className="bottom-content">
           <li className="mb-5">
-            <Link
+            <NavLink
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               style={{ backgroundColor: isHovered ? "#31d186" : "#198754" }}
@@ -126,7 +144,7 @@ function SideMenu({ mainBg }) {
                   Logout
                 </span>
               )}
-            </Link>
+            </NavLink>
           </li>
         </div>
       </div>
