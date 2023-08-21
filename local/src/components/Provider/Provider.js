@@ -6,8 +6,7 @@ export const ProviderContext = createContext();
 
 const Provider = (props) => {
   const [token, setToken] = useState(
-    sessionStorage.getItem("accessToken") &
-      sessionStorage.getItem("refreshToken")
+    sessionStorage.getItem("accessToken")
       ? {
           accessToken: sessionStorage.getItem("accessToken"),
           refreshToken: sessionStorage.getItem("refreshToken"),
@@ -20,7 +19,7 @@ const Provider = (props) => {
     accessToken: "",
     refreshToken: "",
   });
-  console.log(token);
+  // console.log(token);
 
   const refreshToken = async () => {
     try {
@@ -61,6 +60,9 @@ const Provider = (props) => {
       return Promise.reject(error);
     }
   );
+
+  const [appointmentsLst, setAppointmentsLst] = useState([]);
+
   useEffect(() => {}, []);
 
   return (
@@ -71,6 +73,8 @@ const Provider = (props) => {
         user,
         setUser,
         axiosJWT,
+        appointmentsLst,
+        setAppointmentsLst,
       }}
     >
       {props.children}

@@ -1,132 +1,159 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
-import { MdIncompleteCircle } from "react-icons/md";
+import { MdCancel, MdIncompleteCircle } from "react-icons/md";
+import Swal from "sweetalert2";
+import { ProviderContext } from "../../components/Provider/Provider";
 
-const appointmentsLst = [
-  {
-    id: 1,
-    consultantName: "Alex Thompson",
-    jobSeekerName: "Emily Williams",
-    dateTime: "August 25, 2023 - 10:00 AM",
-    jobType: "Software Engineer",
-    status: true,
-  },
-  {
-    id: 2,
-    consultantName: "Maya Rodriguez",
-    jobSeekerName: "Benjamin Johnson",
-    dateTime: "October 15, 2023 - 2:30 PM",
-    jobType: "Graphic Designer",
-    status: true,
-  },
-  {
-    id: 3,
-    consultantName: "Liam Patel",
-    jobSeekerName: "Ethan Davis",
-    dateTime: "November 8, 2023 - 11:45 AM",
-    jobType: "Software Engineer",
-    status: false,
-  },
-  {
-    id: 4,
-    consultantName: "Sophia Lee",
-    jobSeekerName: "Sophia Anderson",
-    dateTime: "December 20, 2023 - 3:15 PM",
-    jobType: "Content Writer",
-    status: false,
-  },
-  {
-    id: 5,
-    consultantName: "Ethan Wilson",
-    jobSeekerName: "Ava Wilson",
-    dateTime: "September 5, 2023 - 10:00 AM",
-    jobType: "Software Engineer",
-    status: true,
-  },
-  {
-    id: 6,
-    consultantName: "Alex Thompson",
-    jobSeekerName: "Mia Brown",
-    dateTime: "August 25, 2023 - 10:00 AM",
-    jobType: "Software Engineer",
-    status: true,
-  },
-  {
-    id: 7,
-    consultantName: "Maya Rodriguez",
-    jobSeekerName: "Isabella Taylor",
-    dateTime: "October 15, 2023 - 2:30 PM",
-    jobType: "Content Writer",
-    status: true,
-  },
-  {
-    id: 8,
-    consultantName: "Liam Patel",
-    jobSeekerName: "Harper Miller",
-    dateTime: "November 8, 2023 - 11:45 AM",
-    jobType: "Software Engineer",
-    status: false,
-  },
-  {
-    id: 9,
-    consultantName: "Sophia Lee",
-    jobSeekerName: "Daniel Wilson",
-    dateTime: "December 20, 2023 - 3:15 PM",
-    jobType: "Content Writer",
-    status: false,
-  },
-  {
-    id: 10,
-    consultantName: "Ethan Wilson",
-    jobSeekerName: "Evelyn Lopez",
-    dateTime: "September 5, 2023 - 10:00 AM",
-    jobType: "Software Engineer",
-    status: true,
-  },
-  {
-    id: 11,
-    consultantName: "Alex Thompson",
-    jobSeekerName: "Jacob Anderson",
-    dateTime: "August 25, 2023 - 10:00 AM",
-    jobType: "Software Engineer",
-    status: true,
-  },
-  {
-    id: 12,
-    consultantName: "Maya Rodriguez",
-    jobSeekerName: "Michael Johnson",
-    dateTime: "October 15, 2023 - 2:30 PM",
-    jobType: "Content Writer",
-    status: true,
-  },
-  {
-    id: 13,
-    consultantName: "Liam Patel",
-    jobSeekerName: "Amelia Davis",
-    dateTime: "November 8, 2023 - 11:45 AM",
-    jobType: "Data Scientist",
-    status: false,
-  },
-  {
-    id: 14,
-    consultantName: "Sophia Lee",
-    jobSeekerName: "Sophia Anderson",
-    dateTime: "December 20, 2023 - 3:15 PM",
-    jobType: "Project Manager",
-    status: false,
-  },
-  {
-    id: 15,
-    consultantName: "Ethan Wilson",
-    jobSeekerName: "Ethan Davis",
-    dateTime: "September 5, 2023 - 10:00 AM",
-    jobType: "Software Engineer",
-    status: true,
-  },
-];
+// let appointmentsLst1 = [
+//   {
+//     id: 1,
+//     consultantName: "Alex Thompson",
+//     jobSeekerName: "Emily Williams",
+//     dateTime: "August 25, 2023 - 10:00 AM",
+//     jobType: "Software Engineer",
+//     status: true,
+//   },
+//   {
+//     id: 2,
+//     consultantName: "Maya Rodriguez",
+//     jobSeekerName: "Benjamin Johnson",
+//     dateTime: "October 15, 2023 - 2:30 PM",
+//     jobType: "Graphic Designer",
+//     status: true,
+//   },
+//   {
+//     id: 3,
+//     consultantName: "Liam Patel",
+//     jobSeekerName: "Ethan Davis",
+//     dateTime: "November 8, 2023 - 11:45 AM",
+//     jobType: "Software Engineer",
+//     status: false,
+//   },
+//   {
+//     id: 4,
+//     consultantName: "Sophia Lee",
+//     jobSeekerName: "Sophia Anderson",
+//     dateTime: "December 20, 2023 - 3:15 PM",
+//     jobType: "Content Writer",
+//     status: false,
+//   },
+//   {
+//     id: 5,
+//     consultantName: "Ethan Wilson",
+//     jobSeekerName: "Ava Wilson",
+//     dateTime: "September 5, 2023 - 10:00 AM",
+//     jobType: "Software Engineer",
+//     status: true,
+//   },
+//   {
+//     id: 6,
+//     consultantName: "Alex Thompson",
+//     jobSeekerName: "Mia Brown",
+//     dateTime: "August 25, 2023 - 10:00 AM",
+//     jobType: "Software Engineer",
+//     status: true,
+//   },
+//   {
+//     id: 7,
+//     consultantName: "Maya Rodriguez",
+//     jobSeekerName: "Isabella Taylor",
+//     dateTime: "October 15, 2023 - 2:30 PM",
+//     jobType: "Content Writer",
+//     status: true,
+//   },
+//   {
+//     id: 8,
+//     consultantName: "Liam Patel",
+//     jobSeekerName: "Harper Miller",
+//     dateTime: "November 8, 2023 - 11:45 AM",
+//     jobType: "Software Engineer",
+//     status: false,
+//   },
+//   {
+//     id: 9,
+//     consultantName: "Sophia Lee",
+//     jobSeekerName: "Daniel Wilson",
+//     dateTime: "December 20, 2023 - 3:15 PM",
+//     jobType: "Content Writer",
+//     status: false,
+//   },
+//   {
+//     id: 10,
+//     consultantName: "Ethan Wilson",
+//     jobSeekerName: "Evelyn Lopez",
+//     dateTime: "September 5, 2023 - 10:00 AM",
+//     jobType: "Software Engineer",
+//     status: true,
+//   },
+//   {
+//     id: 11,
+//     consultantName: "Alex Thompson",
+//     jobSeekerName: "Jacob Anderson",
+//     dateTime: "August 25, 2023 - 10:00 AM",
+//     jobType: "Software Engineer",
+//     status: true,
+//   },
+//   {
+//     id: 12,
+//     consultantName: "Maya Rodriguez",
+//     jobSeekerName: "Michael Johnson",
+//     dateTime: "October 15, 2023 - 2:30 PM",
+//     jobType: "Content Writer",
+//     status: true,
+//   },
+//   {
+//     id: 13,
+//     consultantName: "Liam Patel",
+//     jobSeekerName: "Amelia Davis",
+//     dateTime: "November 8, 2023 - 11:45 AM",
+//     jobType: "Data Scientist",
+//     status: false,
+//   },
+//   {
+//     id: 14,
+//     consultantName: "Sophia Lee",
+//     jobSeekerName: "Sophia Anderson",
+//     dateTime: "December 20, 2023 - 3:15 PM",
+//     jobType: "Project Manager",
+//     status: false,
+//   },
+//   {
+//     id: 15,
+//     consultantName: "Ethan Wilson",
+//     jobSeekerName: "Ethan Davis",
+//     dateTime: "September 5, 2023 - 10:00 AM",
+//     jobType: "Software Engineer",
+//     status: true,
+//   },
+// ];
 
 const Appointments = () => {
-  // const { user } = useContext(ProviderContext);
+  const { axiosJWT, appointmentsLst, setAppointmentsLst } =
+    useContext(ProviderContext);
+
+  const getAppointments = async () => {
+    try {
+      const res = await axiosJWT.get("http://localhost:4000/appointments/all", {
+        headers: {
+          authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+        },
+      });
+      setAppointmentsLst(res.data);
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Server Error.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
+  };
+  useEffect(() => {
+    getAppointments();
+  }, []);
+
   const [userType] = useState(sessionStorage.getItem("userType"));
 
   if (userType === "job-seeker") {
@@ -159,18 +186,24 @@ const Appointments = () => {
                 <td>{item.dateTime}</td>
                 <td style={{ textAlign: "center" }}>
                   <div
-                    className={
-                      item.status
-                        ? "btn btn-secondary btn-lg disabled"
-                        : "btn btn-primary btn-lg disabled"
-                    }
+                    className={`btn btn-lg ${
+                      item.status === "complete"
+                        ? "btn-secondary"
+                        : item.status === "active"
+                        ? "btn-primary"
+                        : "disabled"
+                    }`}
                     style={{
                       borderRadius: "50px",
                       width: "120px",
                       fontSize: "12px",
                     }}
                   >
-                    {item.status ? "Completed" : "Pending"}
+                    {item.status === "complete"
+                      ? "completed"
+                      : item.status === "active"
+                      ? "active"
+                      : "rejected"}
                   </div>
                 </td>
                 <td style={{ textAlign: "center" }}>
@@ -224,31 +257,56 @@ const Appointments = () => {
                 <td>{item.dateTime}</td>
                 <td style={{ textAlign: "center" }}>
                   <div
-                    className={
-                      item.status
-                        ? "btn btn-secondary btn-lg disabled"
-                        : "btn btn-primary btn-lg disabled"
-                    }
+                    className={`btn btn-lg ${
+                      item.status === "complete"
+                        ? "btn-secondary"
+                        : item.status === "active"
+                        ? "btn-primary"
+                        : "disabled"
+                    }`}
                     style={{
                       borderRadius: "50px",
                       width: "120px",
                       fontSize: "12px",
                     }}
                   >
-                    {item.status ? "Completed" : "Pending"}
+                    {item.status === "complete"
+                      ? "completed"
+                      : item.status === "active"
+                      ? "active"
+                      : "rejected"}
                   </div>
                 </td>
                 <td style={{ textAlign: "center" }}>
                   <div className="flex">
                     <button
                       type="button"
-                      className={`btn btn-success ${item.status && "disabled"}`}
+                      className={`btn btn-success ${
+                        item.status !== "active" && "disabled"
+                      }`}
                       style={{ borderRadius: "50px" }}
                     >
                       <MdIncompleteCircle
                         style={{ marginBottom: "4px", marginRight: "4px" }}
                       />
                       Complete
+                    </button>
+                    &nbsp;
+                    <button
+                      type="button"
+                      className={`btn btn-warning ${
+                        item.status !== "active" && "disabled"
+                      }`}
+                      style={{ borderRadius: "50px" }}
+                    >
+                      <MdCancel
+                        style={{
+                          marginBottom: "4px",
+                          marginRight: "4px",
+                          color: "white",
+                        }}
+                      />
+                      Reject
                     </button>
                     &nbsp;
                     <button
@@ -302,31 +360,56 @@ const Appointments = () => {
                 <td>{item.dateTime}</td>
                 <td style={{ textAlign: "center" }}>
                   <div
-                    className={
-                      item.status
-                        ? "btn btn-secondary btn-lg disabled"
-                        : "btn btn-primary btn-lg disabled"
-                    }
+                    className={`btn btn-lg ${
+                      item.status === "complete"
+                        ? "btn-secondary"
+                        : item.status === "active"
+                        ? "btn-primary"
+                        : "disabled"
+                    }`}
                     style={{
                       borderRadius: "50px",
                       width: "120px",
                       fontSize: "12px",
                     }}
                   >
-                    {item.status ? "Completed" : "Pending"}
+                    {item.status === "complete"
+                      ? "completed"
+                      : item.status === "active"
+                      ? "active"
+                      : "rejected"}
                   </div>
                 </td>
                 <td style={{ textAlign: "center" }}>
                   <div className="flex">
                     <button
                       type="button"
-                      className={`btn btn-success ${item.status && "disabled"}`}
+                      className={`btn btn-success ${
+                        item.status !== "active" && "disabled"
+                      }`}
                       style={{ borderRadius: "50px" }}
                     >
                       <MdIncompleteCircle
                         style={{ marginBottom: "4px", marginRight: "4px" }}
                       />
                       Complete
+                    </button>
+                    &nbsp;
+                    <button
+                      type="button"
+                      className={`btn btn-warning ${
+                        item.status !== "active" && "disabled"
+                      }`}
+                      style={{ borderRadius: "50px" }}
+                    >
+                      <MdCancel
+                        style={{
+                          marginBottom: "4px",
+                          marginRight: "4px",
+                          color: "white",
+                        }}
+                      />
+                      Reject
                     </button>
                     &nbsp;
                     <button
