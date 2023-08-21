@@ -1,13 +1,13 @@
 import { useRoutes } from "react-router-dom";
 import SideMenuLayout from "../Layouts/SideMenuLayout/SideMenuLayout";
 import Appointments from "../pages/Appointments/Appointments";
+import Consultant from "../pages/Consultants/Consultant";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import UserProfile from "../pages/User-profile/UserProfile";
 import PrivateRouteInverse from "../utils/PrivateRouteInverse";
 import PrivateRoutes from "../utils/PrivateRoutes";
-import UserProfile from "../pages/User-profile/UserProfile";
-import Consultant from "../pages/Consultants/Consultant";
 import Consultantprofile from "../pages/Consultantprofile/Consultantprofile";
 
 function Router() {
@@ -18,7 +18,7 @@ function Router() {
         {
           path: "/home",
           element: (
-            <SideMenuLayout>
+            <SideMenuLayout style={{ paddingLeft: "88px", paddingTop: "0px" }}>
               <Home />
             </SideMenuLayout>
           ),
