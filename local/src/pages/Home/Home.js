@@ -4,6 +4,7 @@ import { GiProgression } from "react-icons/gi";
 import {
   MdEmojiPeople,
   MdIncompleteCircle,
+  MdKeyboardDoubleArrowRight,
   MdOutlineLocalConvenienceStore,
   MdScheduleSend,
 } from "react-icons/md";
@@ -18,7 +19,9 @@ import badgeLineYellow from "../../assets/img/team-details/badge-line-yellow.svg
 import testimonial1 from "../../assets/img/testimonial/testimonial-1.png";
 import testimonial2 from "../../assets/img/testimonial/testimonial-2.png";
 import testimonial3 from "../../assets/img/testimonial/testimonial-3.png";
+import logo from "../../assets/logo/1.png";
 
+import { Link } from "react-router-dom";
 import "./Footer.css";
 import "./Home.css";
 import "./WhyChoose.css";
@@ -63,16 +66,23 @@ export default function Home() {
                     </h1>
 
                     <div className="theme-btn__wrapper d-flex justify-content-center">
-                      <a
-                        href="/consultant"
+                      <Link
+                        to={
+                          sessionStorage.getItem("userType") === "job-seeker"
+                            ? "/consultant"
+                            : "/appointment"
+                        }
                         className="theme-btn btn-sm"
                         data-animation="fadeInUp"
                         data-delay="1.3s"
                         style={{ zIndex: "1" }}
                       >
-                        Consultant{" "}
-                        <i className="fas fa-long-arrow-alt-right"></i>
-                      </a>
+                        {sessionStorage.getItem("userType") === "job-seeker"
+                          ? "Consultant"
+                          : "Appointments"}
+                        &nbsp;
+                        <MdKeyboardDoubleArrowRight />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -528,7 +538,7 @@ export default function Home() {
                   testimonials
                 </span>
                 <br />
-                <h2 className="title color-secondary">Check whatclient say</h2>
+                <h2 className="title color-secondary">Check what client say</h2>
                 <br />
               </div>
             </div>
@@ -539,68 +549,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-          {/* <div className="row">
-            <div className="col-12">
-              <div className="testimonial-slider-home-2 mt-65 mt-md-50 mt-sm-40 mt-xs-30">
-                <div className="slider-item">
-                  <div className="testimonial__item testimonial-item-two">
-                    <div className="testimonial__item-header d-flex justify-content-between align-items-center mb-35 mb-sm-25 mb-xs-20">
-                      <div className="left d-flex align-items-center">
-                        <div className="media overflow-hidden">
-                          <img
-                            src="assets/img/testimonial/testimonial-4.png"
-                            className="img-fluid"
-                            alt=""
-                          />
-                        </div>
-
-                        <div className="meta">
-                          <h6 className="name fw-500 text-uppercase color-d_black">
-                            Elizabeth Linda
-                          </h6>
-                          <span className="position font-la fw-500 color-d_black">
-                            Company Manager
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="right">
-                        <i className="fal fa-quote-right"></i>
-                      </div>
-                    </div>
-
-                    <div className="description font-la mb-40 mb-md-35 mb-sm-30 mb-xs-25">
-                      <p>
-                        I can't express how grateful I am for The Jobs
-                        Consultation Centre's support. Their consultants'
-                        insights into job markets helped me make informed
-                        decisions. The convenience of online scheduling and
-                        their tech-forward approach demonstrated their
-                        commitment to providing top-notch service. Their
-                        personalized support gave me the confidence I needed.
-                      </p>
-                    </div>
-
-                    <div className="testimonial__item-footer d-flex justify-content-between">
-                      <div className="socail-link">
-                        <ul>
-                          <li>
-                            <a href="#">
-                              <img
-                                src="assets/img/testimonial/asana.png"
-                                alt=""
-                              />
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
           <div className="row row-cols-1 row-cols-md-3 g-4">
             <div className="col">
               <div
@@ -763,7 +711,7 @@ export default function Home() {
                     <br />
                     <br />
                     <h2 className="title color-white mb-20 mb-sm-10 mb-xs-5">
-                      Feel Free To Contatct Us
+                      Feel Free To Contact Us
                     </h2>
                     <div className="description color-white font-la mb-40 mb-md-30 mb-sm-25 mb-xs-20 fw-500 mx-auto">
                       <p>
@@ -774,13 +722,15 @@ export default function Home() {
                     </div>
                     <br />
 
-                    <a
-                      href="contact.html"
+                    <Link
+                      to="/home"
                       className="theme-btn btn-sm btn-yellow"
                       style={{ marginBottom: "30px" }}
+                      title="(+94) 746 525 659"
                     >
-                      Contact Us <i className="fab fa-telegram-plane"></i>
-                    </a>
+                      Call Now: <i>(+94) 746 525 659</i>
+                      <i className="fab fa-telegram-plane"></i>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -794,11 +744,21 @@ export default function Home() {
           <div className="container">
             <div className="row">
               <div className="col-lg-6">
-                <div className="single-footer-wid site_info_box">
-                  <a href="index.html" className="d-block mb-20">
-                    <img src="assets/img/logo/footer-logo-2.png" alt="" />
-                  </a>
-
+                <div className="single-footer-wid site_info_box d-flex">
+                  <div>
+                    <Link to="index.html" className="d-block mb-20">
+                      <img
+                        src={logo}
+                        alt=""
+                        style={{
+                          width: "250px",
+                          marginTop: "7px",
+                          borderRadius: "4px",
+                        }}
+                      />
+                    </Link>
+                  </div>
+                  <div style={{ width: "50px" }}></div>
                   <div className="description font-la color-white">
                     <p>
                       <i>"Empowering Dreams, Guiding Careers."</i> <br />
@@ -822,7 +782,8 @@ export default function Home() {
                 <br />
                 <br />
                 <br />
-                &copy; 2022 <a href="/home">The Jobs</a> | All Rights Reserved
+                &copy; 2022 <Link to="/home">The Jobs</Link> | All Rights
+                Reserved
               </div>
 
               <div className="footer-bottom-list last_no_bullet">
@@ -831,10 +792,10 @@ export default function Home() {
                 <br />
                 <ul>
                   <li>
-                    <a href="#">Terms & Conditions</a>
+                    <Link to="/home">Terms & Conditions</Link>
                   </li>
                   <li>
-                    <a href="#">Privacy Policy</a>
+                    <Link to="/home">Privacy Policy</Link>
                   </li>
                 </ul>
               </div>
