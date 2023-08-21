@@ -27,14 +27,14 @@ export default function Home() {
   return (
     <div>
       {/* Header section */}
-      <section class="banner-slider__wrapper pt-0 pb-0 overflow-hidden">
-        {/* <div class="slider-controls">
-          <div class="banner-slider-arrows d-flex flex-column"></div>
+      <section className="banner-slider__wrapper pt-0 pb-0 overflow-hidden">
+        {/* <div className="slider-controls">
+          <div className="banner-slider-arrows d-flex flex-column"></div>
         </div> */}
 
-        <div class=" overflow-hidden">
+        <div className=" overflow-hidden">
           <div
-            class="slider-item"
+            className="slider-item"
             style={{
               backgroundImage: `url(${bannerImage})`,
               backgroundSize: "cover",
@@ -43,34 +43,35 @@ export default function Home() {
               height: "1000px",
             }}
           >
-            <div class="container">
-              <div class="row">
-                <div class="col-12">
-                  <div class="banner__content text-center">
+            <div className="container">
+              <div className="row">
+                <div className="col-12">
+                  <div className="banner__content text-center">
                     <h6
-                      class="sub-title color-white mb-15 mb-sm-15 mb-xs-10"
+                      className="sub-title color-white mb-15 mb-sm-15 mb-xs-10"
                       data-animation="fadeInUp"
                       data-delay="0.5s"
                     >
                       <span>30 Years</span> Of Successful Job Consulting
                     </h6>
                     <h1
-                      class="title color-white mb-sm-30 mb-xs-20 mb-40"
+                      className="title color-white mb-sm-30 mb-xs-20 mb-40"
                       data-animation="fadeInUp"
                       data-delay="1s"
                     >
                       A big Opportutnity for your Job Consulting
                     </h1>
 
-                    <div class="theme-btn__wrapper d-flex justify-content-center">
+                    <div className="theme-btn__wrapper d-flex justify-content-center">
                       <a
                         href="/consultant"
-                        class="theme-btn btn-sm"
+                        className="theme-btn btn-sm"
                         data-animation="fadeInUp"
                         data-delay="1.3s"
                         style={{ zIndex: "1" }}
                       >
-                        Consultant <i class="fas fa-long-arrow-alt-right"></i>
+                        Consultant{" "}
+                        <i className="fas fa-long-arrow-alt-right"></i>
                       </a>
                     </div>
                   </div>
@@ -85,23 +86,27 @@ export default function Home() {
       <br />
       <br />
       {/* About Us section */}
-      <section class="about-us pb-xs-80 pt-xs-80 pt-sm-100 pb-sm-100 pt-md-100 pb-md-100 pt-120 pb-120 overflow-hidden">
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-6">
-              <div class="about-us__content mb-lg-60 mb-md-50 mb-sm-40 mb-xs-30">
-                <span class="sub-title fw-500 color-yellow text-uppercase mb-sm-10 mb-xs-5 mb-15 d-block">
-                  <img src={badgeLineYellow} class="img-fluid mr-10" alt="" />
+      <section className="about-us pb-xs-80 pt-xs-80 pt-sm-100 pb-sm-100 pt-md-100 pb-md-100 pt-120 pb-120 overflow-hidden">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-6">
+              <div className="about-us__content mb-lg-60 mb-md-50 mb-sm-40 mb-xs-30">
+                <span className="sub-title fw-500 color-yellow text-uppercase mb-sm-10 mb-xs-5 mb-15 d-block">
+                  <img
+                    src={badgeLineYellow}
+                    className="img-fluid mr-10"
+                    alt=""
+                  />
                   About Us
                 </span>
                 <br />
-                <h2 class="title color-secondary mb-20 mb-sm-15 mb-xs-10">
+                <h2 className="title color-secondary mb-20 mb-sm-15 mb-xs-10">
                   Elevating Your Overseas Career Dreams, One Consultation at a
                   Time!
                 </h2>
                 <br />
 
-                <div class="description font-la mb-50 mb-sm-40 mb-xs-30">
+                <div className="description font-la mb-50 mb-sm-40 mb-xs-30">
                   <p>
                     Welcome to The Jobs Consultation Centre's new and improved
                     web-based platform – your gateway to expert guidance and
@@ -118,14 +123,14 @@ export default function Home() {
               </div>
             </div>
 
-            <div class="col-xl-6">
-              <div class="about-us__media d-flex align-content-center justify-content-center align-items-center">
-                <div class="media">
-                  <img src={aboutMedia} class="img-fluid" alt="" />
+            <div className="col-xl-6">
+              <div className="about-us__media d-flex align-content-center justify-content-center align-items-center">
+                <div className="media">
+                  <img src={aboutMedia} className="img-fluid" alt="" />
                 </div>
 
                 <div
-                  class="expert-team expert-team-one text-center"
+                  className="expert-team expert-team-one text-center"
                   style={{
                     backgroundImage: `url(${expertTeam1})`,
                     backgroundSize: "cover",
@@ -134,14 +139,16 @@ export default function Home() {
                     height: "300px",
                   }}
                 >
-                  <div class="number color-white mb-10 mb-xs-5 fw-600">
+                  <div className="number color-white mb-10 mb-xs-5 fw-600">
                     <span>150</span>+
                   </div>
-                  <h6 class="title font-la color-white">Expert Consulter</h6>
+                  <h6 className="title font-la color-white">
+                    Expert Consulter
+                  </h6>
                 </div>
 
                 <div
-                  class="expert-team expert-team-two text-center"
+                  className="expert-team expert-team-two text-center"
                   style={{
                     backgroundImage: `url(${expertTeam2})`,
                     backgroundSize: "cover",
@@ -150,28 +157,29 @@ export default function Home() {
                     height: "300px",
                   }}
                 >
-                  <div class="number color-white mb-10 mb-xs-5 fw-600">
+                  <div className="number color-white mb-10 mb-xs-5 fw-600">
                     <span>150</span>k
                   </div>
-                  <h6 class="title font-la color-white">
+                  <h6 className="title font-la color-white">
                     Clients Satisfaction Survey In Consulting Organization
                   </h6>
                 </div>
 
                 <div
-                  class="expert-team expert-team-three text-center"
+                  className="expert-team expert-team-three text-center"
                   style={{
                     backgroundImage: `url(${expertTeam3})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     width: "100%",
                     height: "300px",
+                    zIndex: "0",
                   }}
                 >
-                  <div class="number color-white mb-10 mb-xs-5 fw-600">
+                  <div className="number color-white mb-10 mb-xs-5 fw-600">
                     <span>30</span>+
                   </div>
-                  <h6 class="title font-la color-white">
+                  <h6 className="title font-la color-white">
                     Years Experiance Our Company
                   </h6>
                 </div>
@@ -182,22 +190,22 @@ export default function Home() {
       </section>
       <br /> <br /> <br /> <br />
       {/* Why Choose us section */}
-      <section class="why-choose pb-xs-80 pt-xs-80 pt-sm-100 pb-sm-100 pt-md-100 pb-md-100 pt-120 pb-120 overflow-hidden">
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-6">
-              <div class="why-choose__media-wrapper d-flex flex-column">
-                <div class="gallery-bar bg-yellow"></div>
+      <section className="why-choose pb-xs-80 pt-xs-80 pt-sm-100 pb-sm-100 pt-md-100 pb-md-100 pt-120 pb-120 overflow-hidden">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-6">
+              <div className="why-choose__media-wrapper d-flex flex-column">
+                <div className="gallery-bar bg-yellow"></div>
 
-                <div class="why-choose__media">
-                  <img src={whyChoose1} alt="" class="img-fluid" />
+                <div className="why-choose__media">
+                  <img src={whyChoose1} alt="" className="img-fluid" />
                 </div>
 
-                <div class="global-country text-center bg-yellow">
-                  <div class="number mb-5 color-white">
-                    <span class="counter">120</span>+
+                <div className="global-country text-center bg-yellow">
+                  <div className="number mb-5 color-white">
+                    <span className="counter">120</span>+
                   </div>
-                  <h6 class="title color-white font-la">
+                  <h6 className="title color-white font-la">
                     Global Country in <br />
                     Our Company
                   </h6>
@@ -205,20 +213,24 @@ export default function Home() {
               </div>
             </div>
 
-            <div class="col-xl-6">
-              <div class="why-choose__content mt-lg-60 mt-md-50 mt-sm-40 mt-xs-35">
-                <div class="why-choose__text mb-40 mb-md-35 mb-sm-30 mb-xs-30">
-                  <span class="sub-title d-block fw-500 color-yellow text-uppercase mb-sm-10 mb-xs-5 mb-md-15 mb-lg-20 mb-25">
-                    <img src={badgeLineYellow} class="img-fluid mr-10" alt="" />
+            <div className="col-xl-6">
+              <div className="why-choose__content mt-lg-60 mt-md-50 mt-sm-40 mt-xs-35">
+                <div className="why-choose__text mb-40 mb-md-35 mb-sm-30 mb-xs-30">
+                  <span className="sub-title d-block fw-500 color-yellow text-uppercase mb-sm-10 mb-xs-5 mb-md-15 mb-lg-20 mb-25">
+                    <img
+                      src={badgeLineYellow}
+                      className="img-fluid mr-10"
+                      alt=""
+                    />
                     Why choose us
                   </span>
                   <br />
-                  <h2 class="title color-pd_black">
+                  <h2 className="title color-pd_black">
                     Empowering Dreams, Guiding Careers.
                   </h2>
 
                   <br />
-                  <div class="description font-la mt-20 mt-sm-15 mt-xs-10">
+                  <div className="description font-la mt-20 mt-sm-15 mt-xs-10">
                     <p>
                       At The Jobs Consultation Centre, we offer expert guidance
                       tailored to your aspirations. Our professionals specialize
@@ -232,17 +244,17 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div class="why-choose__item-wrapper d-grid justify-content-between">
-                  <div class="why-choose__item">
-                    <div class="icon mb-15 mb-md-10 mb-xs-5 color-yellow">
-                      <i class="icon-consultation"></i>
+                <div className="why-choose__item-wrapper d-grid justify-content-between">
+                  <div className="why-choose__item">
+                    <div className="icon mb-15 mb-md-10 mb-xs-5 color-yellow">
+                      <i className="icon-consultation"></i>
                     </div>
 
-                    <h5 class="title color-secondary fw-500 mb-10">
+                    <h5 className="title color-secondary fw-500 mb-10">
                       Expertise
                     </h5>
 
-                    <div class="description font-la">
+                    <div className="description font-la">
                       <p>
                         Our professionals offer specialized insights into
                         specific countries and job markets.
@@ -250,44 +262,44 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div class="why-choose__item">
-                    <div class="icon mb-15 mb-md-10 mb-xs-5 color-yellow">
-                      <i class="icon-lawyer"></i>
+                  <div className="why-choose__item">
+                    <div className="icon mb-15 mb-md-10 mb-xs-5 color-yellow">
+                      <i className="icon-lawyer"></i>
                     </div>
 
-                    <h5 class="title color-secondary fw-500 mb-10">
+                    <h5 className="title color-secondary fw-500 mb-10">
                       Flexibility
                     </h5>
 
-                    <div class="description font-la">
+                    <div className="description font-la">
                       <p>Choose appointment times that suit your schedule.</p>
                     </div>
                   </div>
 
-                  <div class="why-choose__item">
-                    <div class="icon mb-15 mb-md-10 mb-xs-5 color-yellow">
-                      <i class="icon-financial"></i>
+                  <div className="why-choose__item">
+                    <div className="icon mb-15 mb-md-10 mb-xs-5 color-yellow">
+                      <i className="icon-financial"></i>
                     </div>
 
-                    <h5 class="title color-secondary fw-500 mb-10">
+                    <h5 className="title color-secondary fw-500 mb-10">
                       Modern Approach
                     </h5>
 
-                    <div class="description font-la">
+                    <div className="description font-la">
                       <p>We leverage technology for a smoother experience.</p>
                     </div>
                   </div>
 
-                  <div class="why-choose__item">
-                    <div class="icon mb-15 mb-md-10 mb-xs-5 color-yellow">
-                      <i class="icon-management"></i>
+                  <div className="why-choose__item">
+                    <div className="icon mb-15 mb-md-10 mb-xs-5 color-yellow">
+                      <i className="icon-management"></i>
                     </div>
 
-                    <h5 class="title color-secondary fw-500 mb-10">
+                    <h5 className="title color-secondary fw-500 mb-10">
                       Comprehensive Support
                     </h5>
 
-                    <div class="description font-la">
+                    <div className="description font-la">
                       <p>LoreWe guide you from start to finish.</p>
                     </div>
                   </div>
@@ -299,59 +311,59 @@ export default function Home() {
       </section>
       <br /> <br /> <br /> <br />
       {/* Counter section */}
-      <div class="counter-area pb-xs-80 pb-sm-100 pb-md-100 pb-120 overflow-hidden">
-        <div class="container">
-          <div class="row mb-minus-30" style={{ placeContent: "center" }}>
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="counter-area__item counter-area__item-two d-flex align-items-center">
-                <div class="icon color-yellow">
+      <div className="counter-area pb-xs-80 pb-sm-100 pb-md-100 pb-120 overflow-hidden">
+        <div className="container">
+          <div className="row mb-minus-30" style={{ placeContent: "center" }}>
+            <div className="col-xl-3 col-lg-4 col-sm-6">
+              <div className="counter-area__item counter-area__item-two d-flex align-items-center">
+                <div className="icon color-yellow">
                   <GiProgression
                     style={{ marginLeft: "15px", marginRight: "15px" }}
                     size={30}
                   />
                 </div>
 
-                <div class="text text-center">
-                  <div class="number fw-600 color-yellow">
-                    <span class="counter">5620</span>+
+                <div className="text text-center">
+                  <div className="number fw-600 color-yellow">
+                    <span className="counter">5620</span>+
                   </div>
-                  <div class="description font-la">Successful Project</div>
+                  <div className="description font-la">Successful Project</div>
                 </div>
               </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="counter-area__item counter-area__item-two d-flex align-items-center">
-                <div class="icon color-yellow">
+            <div className="col-xl-3 col-lg-4 col-sm-6">
+              <div className="counter-area__item counter-area__item-two d-flex align-items-center">
+                <div className="icon color-yellow">
                   <BiSupport
                     style={{ marginLeft: "15px", marginRight: "15px" }}
                     size={30}
                   />
                 </div>
 
-                <div class="text text-center">
-                  <div class="number fw-600 color-yellow">
-                    <span class="counter">150</span>+
+                <div className="text text-center">
+                  <div className="number fw-600 color-yellow">
+                    <span className="counter">150</span>+
                   </div>
-                  <div class="description font-la">Expert Consulter</div>
+                  <div className="description font-la">Expert Consulter</div>
                 </div>
               </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="counter-area__item counter-area__item-two d-flex align-items-center">
-                <div class="icon color-yellow">
+            <div className="col-xl-3 col-lg-4 col-sm-6">
+              <div className="counter-area__item counter-area__item-two d-flex align-items-center">
+                <div className="icon color-yellow">
                   <BsMicrosoftTeams
                     style={{ marginLeft: "15px", marginRight: "15px" }}
                     size={30}
                   />
                 </div>
 
-                <div class="text text-center">
-                  <div class="number fw-600 color-yellow">
-                    <span class="counter">3225</span>+
+                <div className="text text-center">
+                  <div className="number fw-600 color-yellow">
+                    <span className="counter">3225</span>+
                   </div>
-                  <div class="description font-la">Client Satisfaction</div>
+                  <div className="description font-la">Client Satisfaction</div>
                 </div>
               </div>
             </div>
@@ -360,38 +372,42 @@ export default function Home() {
       </div>
       <br /> <br /> <br /> <br />
       {/* Service work section */}
-      <section class="work-process pb-xs-80 pt-xs-80 pt-sm-100 pb-sm-100 pt-md-100 pb-md-100 pt-120 pb-100 overflow-hidden">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="pricing__content mb-60 mb-sm-40 mb-xs-30 text-center">
-                <span class="sub-title d-block fw-500 color-yellow text-uppercase mb-sm-10 mb-xs-5 mb-md-15 mb-lg-20 mb-25">
-                  <img src={badgeLineYellow} class="img-fluid mr-10" alt="" />
+      <section className="work-process pb-xs-80 pt-xs-80 pt-sm-100 pb-sm-100 pt-md-100 pb-md-100 pt-120 pb-100 overflow-hidden">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <div className="pricing__content mb-60 mb-sm-40 mb-xs-30 text-center">
+                <span className="sub-title d-block fw-500 color-yellow text-uppercase mb-sm-10 mb-xs-5 mb-md-15 mb-lg-20 mb-25">
+                  <img
+                    src={badgeLineYellow}
+                    className="img-fluid mr-10"
+                    alt=""
+                  />
                   Our Work Process
                 </span>
                 <br />
-                <h2 class="title color-d_black">How Our Services Work</h2>
+                <h2 className="title color-d_black">How Our Services Work</h2>
                 <br />
               </div>
             </div>
           </div>
 
-          <div class="row mb-minus-30">
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="work-process__item mb-70 text-center">
-                <div class="icon mx-auto">
+          <div className="row mb-minus-30">
+            <div className="col-xl-3 col-lg-4 col-sm-6">
+              <div className="work-process__item mb-70 text-center">
+                <div className="icon mx-auto">
                   <MdScheduleSend
                     style={{ marginLeft: "15px", marginRight: "15px" }}
                     size={30}
                   />
                 </div>
 
-                <div class="text">
-                  <h6 class="title color-secondary mb-15 mb-sm-10 mb-xs-5">
+                <div className="text">
+                  <h6 className="title color-secondary mb-15 mb-sm-10 mb-xs-5">
                     Schedule Your Consultation
                   </h6>
 
-                  <div class="description font-la">
+                  <div className="description font-la">
                     <p>
                       Choose a convenient time from our flexible scheduling
                       options. Book your appointment online, ensuring it aligns
@@ -400,27 +416,27 @@ export default function Home() {
                   </div>
                 </div>
 
-                <button class="theme-btn btn-black text-uppercase">
+                <button className="theme-btn btn-black text-uppercase">
                   Step - 1
                 </button>
               </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="work-process__item mb-70 text-center">
-                <div class="icon mx-auto">
+            <div className="col-xl-3 col-lg-4 col-sm-6">
+              <div className="work-process__item mb-70 text-center">
+                <div className="icon mx-auto">
                   <MdEmojiPeople
                     style={{ marginLeft: "15px", marginRight: "15px" }}
                     size={30}
                   />
                 </div>
 
-                <div class="text">
-                  <h6 class="title color-secondary mb-15 mb-sm-10 mb-xs-5">
+                <div className="text">
+                  <h6 className="title color-secondary mb-15 mb-sm-10 mb-xs-5">
                     Expert Consultation
                   </h6>
 
-                  <div class="description font-la">
+                  <div className="description font-la">
                     <p>
                       Meet with our specialized job consultants who possess deep
                       insights into your desired country's job market. Receive
@@ -430,27 +446,27 @@ export default function Home() {
                   </div>
                 </div>
 
-                <button class="theme-btn btn-black text-uppercase">
+                <button className="theme-btn btn-black text-uppercase">
                   Step - 2
                 </button>
               </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="work-process__item mb-70 text-center">
-                <div class="icon mx-auto">
+            <div className="col-xl-3 col-lg-4 col-sm-6">
+              <div className="work-process__item mb-70 text-center">
+                <div className="icon mx-auto">
                   <MdOutlineLocalConvenienceStore
                     style={{ marginLeft: "15px", marginRight: "15px" }}
                     size={30}
                   />
                 </div>
 
-                <div class="text">
-                  <h6 class="title color-secondary mb-15 mb-sm-10 mb-xs-5">
+                <div className="text">
+                  <h6 className="title color-secondary mb-15 mb-sm-10 mb-xs-5">
                     Modern Convenience
                   </h6>
 
-                  <div class="description font-la">
+                  <div className="description font-la">
                     <p>
                       Embrace our seamless tech-integrated approach. Leverage
                       our web-based platform to access information, resources,
@@ -459,27 +475,27 @@ export default function Home() {
                   </div>
                 </div>
 
-                <button class="theme-btn btn-black text-uppercase">
+                <button className="theme-btn btn-black text-uppercase">
                   Step - 3
                 </button>
               </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="work-process__item mb-70 text-center">
-                <div class="icon mx-auto">
+            <div className="col-xl-3 col-lg-4 col-sm-6">
+              <div className="work-process__item mb-70 text-center">
+                <div className="icon mx-auto">
                   <MdIncompleteCircle
                     style={{ marginLeft: "15px", marginRight: "15px" }}
                     size={30}
                   />
                 </div>
 
-                <div class="text">
-                  <h6 class="title color-secondary mb-15 mb-sm-10 mb-xs-5">
+                <div className="text">
+                  <h6 className="title color-secondary mb-15 mb-sm-10 mb-xs-5">
                     Ongoing Support
                   </h6>
 
-                  <div class="description font-la">
+                  <div className="description font-la">
                     <p>
                       Our commitment doesn't stop after your consultation. From
                       interview preparation to post-appointment queries, we're
@@ -488,7 +504,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <button class="theme-btn btn-black text-uppercase">
+                <button className="theme-btn btn-black text-uppercase">
                   Step - 4
                 </button>
               </div>
@@ -498,59 +514,63 @@ export default function Home() {
       </section>
       <br /> <br /> <br /> <br />
       {/* Testimonial section */}
-      <section class="testimonial bg-dark_yellow pb-xs-80 pt-xs-80 pt-sm-100 pb-sm-100 pt-md-100 pb-md-100 pt-120 pb-120 overflow-hidden">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-sm-9">
-              <div class="employee-friendly__content">
-                <span class="sub-title fw-500 color-yellow text-uppercase mb-sm-10 mb-xs-5 mb-15 d-block">
-                  <img src={badgeLineYellow} class="img-fluid mr-10" alt="" />
+      <section className="testimonial bg-dark_yellow pb-xs-80 pt-xs-80 pt-sm-100 pb-sm-100 pt-md-100 pb-md-100 pt-120 pb-120 overflow-hidden">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-sm-9">
+              <div className="employee-friendly__content">
+                <span className="sub-title fw-500 color-yellow text-uppercase mb-sm-10 mb-xs-5 mb-15 d-block">
+                  <img
+                    src={badgeLineYellow}
+                    className="img-fluid mr-10"
+                    alt=""
+                  />
                   testimonials
                 </span>
                 <br />
-                <h2 class="title color-secondary">Check whatclient say</h2>
+                <h2 className="title color-secondary">Check whatclient say</h2>
                 <br />
               </div>
             </div>
 
-            <div class="col-sm-3">
-              <div class="slider-controls mt-xs-15">
-                <div class="testimonial-slider-arrows d-flex align-content-center justify-content-sm-end"></div>
+            <div className="col-sm-3">
+              <div className="slider-controls mt-xs-15">
+                <div className="testimonial-slider-arrows d-flex align-content-center justify-content-sm-end"></div>
               </div>
             </div>
           </div>
 
-          {/* <div class="row">
-            <div class="col-12">
-              <div class="testimonial-slider-home-2 mt-65 mt-md-50 mt-sm-40 mt-xs-30">
-                <div class="slider-item">
-                  <div class="testimonial__item testimonial-item-two">
-                    <div class="testimonial__item-header d-flex justify-content-between align-items-center mb-35 mb-sm-25 mb-xs-20">
-                      <div class="left d-flex align-items-center">
-                        <div class="media overflow-hidden">
+          {/* <div className="row">
+            <div className="col-12">
+              <div className="testimonial-slider-home-2 mt-65 mt-md-50 mt-sm-40 mt-xs-30">
+                <div className="slider-item">
+                  <div className="testimonial__item testimonial-item-two">
+                    <div className="testimonial__item-header d-flex justify-content-between align-items-center mb-35 mb-sm-25 mb-xs-20">
+                      <div className="left d-flex align-items-center">
+                        <div className="media overflow-hidden">
                           <img
                             src="assets/img/testimonial/testimonial-4.png"
-                            class="img-fluid"
+                            className="img-fluid"
                             alt=""
                           />
                         </div>
 
-                        <div class="meta">
-                          <h6 class="name fw-500 text-uppercase color-d_black">
+                        <div className="meta">
+                          <h6 className="name fw-500 text-uppercase color-d_black">
                             Elizabeth Linda
                           </h6>
-                          <span class="position font-la fw-500 color-d_black">
+                          <span className="position font-la fw-500 color-d_black">
                             Company Manager
                           </span>
                         </div>
                       </div>
 
-                      <div class="right">
-                        <i class="fal fa-quote-right"></i>
+                      <div className="right">
+                        <i className="fal fa-quote-right"></i>
                       </div>
                     </div>
 
-                    <div class="description font-la mb-40 mb-md-35 mb-sm-30 mb-xs-25">
+                    <div className="description font-la mb-40 mb-md-35 mb-sm-30 mb-xs-25">
                       <p>
                         I can't express how grateful I am for The Jobs
                         Consultation Centre's support. Their consultants'
@@ -562,8 +582,8 @@ export default function Home() {
                       </p>
                     </div>
 
-                    <div class="testimonial__item-footer d-flex justify-content-between">
-                      <div class="socail-link">
+                    <div className="testimonial__item-footer d-flex justify-content-between">
+                      <div className="socail-link">
                         <ul>
                           <li>
                             <a href="#">
@@ -581,15 +601,15 @@ export default function Home() {
               </div>
             </div>
           </div> */}
-          <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
+          <div className="row row-cols-1 row-cols-md-3 g-4">
+            <div className="col">
               <div
-                class="card h-100"
+                className="card h-100"
                 style={{ border: "solid .5px #198754 !important" }}
               >
                 <img
                   src={testimonial1}
-                  class="card-img-top"
+                  className="card-img-top"
                   style={{
                     width: "100px",
                     marginLeft: "15px",
@@ -598,13 +618,13 @@ export default function Home() {
                     border: "solid 2px #198754",
                   }}
                 />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <h6 class="name fw-500 text-uppercase color-d_black">
+                <div className="card-body">
+                  <h5 className="card-title">
+                    <h6 className="name fw-500 text-uppercase color-d_black">
                       Jacob Anderson
                     </h6>
                     <span
-                      class="position font-la fw-500 color-d_black"
+                      className="position font-la fw-500 color-d_black"
                       style={{
                         color: "#198754",
                         fontSize: "15px",
@@ -613,7 +633,7 @@ export default function Home() {
                       Company Manager
                     </span>
                   </h5>
-                  <p class="card-text">
+                  <p className="card-text">
                     <i>
                       "I can't express how grateful I am for The Jobs
                       Consultation Centre's support. Their consultants' insights
@@ -627,14 +647,14 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div class="col">
+            <div className="col">
               <div
-                class="card h-100"
+                className="card h-100"
                 style={{ border: "solid .5px #198754 !important" }}
               >
                 <img
                   src={testimonial2}
-                  class="card-img-top"
+                  className="card-img-top"
                   style={{
                     width: "100px",
                     marginLeft: "15px",
@@ -643,13 +663,13 @@ export default function Home() {
                     border: "solid 2px #198754",
                   }}
                 />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <h6 class="name fw-500 text-uppercase color-d_black">
+                <div className="card-body">
+                  <h5 className="card-title">
+                    <h6 className="name fw-500 text-uppercase color-d_black">
                       Jessica M.
                     </h6>
                     <span
-                      class="position font-la fw-500 color-d_black"
+                      className="position font-la fw-500 color-d_black"
                       style={{
                         color: "#198754",
                         fontSize: "15px",
@@ -658,7 +678,7 @@ export default function Home() {
                       Successful Job Seeker
                     </span>
                   </h5>
-                  <p class="card-text">
+                  <p className="card-text">
                     <i>
                       "The Jobs Consultation Centre made my overseas job search
                       a breeze. Their experts provided invaluable advice
@@ -671,14 +691,14 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div class="col">
+            <div className="col">
               <div
-                class="card h-100"
+                className="card h-100"
                 style={{ border: "solid .5px #198754 !important" }}
               >
                 <img
                   src={testimonial3}
-                  class="card-img-top"
+                  className="card-img-top"
                   style={{
                     width: "100px",
                     marginLeft: "15px",
@@ -687,13 +707,13 @@ export default function Home() {
                     border: "solid 2px #198754",
                   }}
                 />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <h6 class="name fw-500 text-uppercase color-d_black">
+                <div className="card-body">
+                  <h5 className="card-title">
+                    <h6 className="name fw-500 text-uppercase color-d_black">
                       Michael Johnson
                     </h6>
                     <span
-                      class="position font-la fw-500 color-d_black"
+                      className="position font-la fw-500 color-d_black"
                       style={{
                         color: "#198754",
                         fontSize: "15px",
@@ -702,7 +722,7 @@ export default function Home() {
                       International Professional
                     </span>
                   </h5>
-                  <p class="card-text">
+                  <p className="card-text">
                     <i>
                       "The team at The Jobs Consultation Centre are true
                       professionals. Their expertise in various countries' job
@@ -722,7 +742,7 @@ export default function Home() {
       <br /> <br /> <br /> <br />
       {/* Footer section */}
       <footer
-        class="footer-1 footer-2 overflow-hidden"
+        className="footer-1 footer-2 overflow-hidden"
         style={{
           backgroundImage: `url(${footerBg2})`,
           backgroundSize: "cover",
@@ -731,21 +751,21 @@ export default function Home() {
           height: "1000px",
         }}
       >
-        <div class="footer-top__cta mb-80 mb-lg-60 mb-sm-50 mb-xs-40">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <div class="footer-top__cta-content-wrapper pb-45">
-                  <div class="footer-top__cta-content text-center mx-auto">
+        <div className="footer-top__cta mb-80 mb-lg-60 mb-sm-50 mb-xs-40">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="footer-top__cta-content-wrapper pb-45">
+                  <div className="footer-top__cta-content text-center mx-auto">
                     <br />
                     <br />
                     <br />
                     <br />
                     <br />
-                    <h2 class="title color-white mb-20 mb-sm-10 mb-xs-5">
+                    <h2 className="title color-white mb-20 mb-sm-10 mb-xs-5">
                       Feel Free To Contatct Us
                     </h2>
-                    <div class="description color-white font-la mb-40 mb-md-30 mb-sm-25 mb-xs-20 fw-500 mx-auto">
+                    <div className="description color-white font-la mb-40 mb-md-30 mb-sm-25 mb-xs-20 fw-500 mx-auto">
                       <p>
                         Contrary to popular belief, Lorem Ipsum is not simply
                         random text. It has roots in a piece of classical Latin
@@ -756,10 +776,10 @@ export default function Home() {
 
                     <a
                       href="contact.html"
-                      class="theme-btn btn-sm btn-yellow"
+                      className="theme-btn btn-sm btn-yellow"
                       style={{ marginBottom: "30px" }}
                     >
-                      Contact Us <i class="fab fa-telegram-plane"></i>
+                      Contact Us <i className="fab fa-telegram-plane"></i>
                     </a>
                   </div>
                 </div>
@@ -770,16 +790,16 @@ export default function Home() {
         <br />
         <br />
 
-        <div class="footer-top mb-xs-25 mb-sm-30 mb-md-35 mb-lg-40 mb-50 overflow-hidden">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="single-footer-wid site_info_box">
-                  <a href="index.html" class="d-block mb-20">
+        <div className="footer-top mb-xs-25 mb-sm-30 mb-md-35 mb-lg-40 mb-50 overflow-hidden">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="single-footer-wid site_info_box">
+                  <a href="index.html" className="d-block mb-20">
                     <img src="assets/img/logo/footer-logo-2.png" alt="" />
                   </a>
 
-                  <div class="description font-la color-white">
+                  <div className="description font-la color-white">
                     <p>
                       <i>"Empowering Dreams, Guiding Careers."</i> <br />
                       At The Jobs Consultation Centre, we live by these words,
@@ -794,10 +814,10 @@ export default function Home() {
         </div>
         <br />
 
-        <div class="footer-bottom overflow-hidden">
-          <div class="container">
-            <div class="footer-bottom-content d-flex flex-column flex-md-row justify-content-between align-items-center">
-              <div class="coppyright text-center text-md-start">
+        <div className="footer-bottom overflow-hidden">
+          <div className="container">
+            <div className="footer-bottom-content d-flex flex-column flex-md-row justify-content-between align-items-center">
+              <div className="coppyright text-center text-md-start">
                 <br />
                 <br />
                 <br />
@@ -805,7 +825,7 @@ export default function Home() {
                 &copy; 2022 <a href="/home">Consulter</a> | All Rights Reserved
               </div>
 
-              <div class="footer-bottom-list last_no_bullet">
+              <div className="footer-bottom-list last_no_bullet">
                 <br />
                 <br />
                 <br />
