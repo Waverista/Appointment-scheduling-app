@@ -8,6 +8,7 @@ import Register from "../pages/Register/Register";
 import UserProfile from "../pages/User-profile/UserProfile";
 import PrivateRouteInverse from "../utils/PrivateRouteInverse";
 import PrivateRoutes from "../utils/PrivateRoutes";
+import Consultantprofile from "../pages/Consultantprofile/Consultantprofile";
 
 function Router() {
   const routes = [
@@ -43,6 +44,14 @@ function Router() {
           element: (
             <SideMenuLayout>
               <UserProfile />
+            </SideMenuLayout>
+          ),
+        },
+        {
+          path: "/Consultantprofile",
+          element: (
+            <SideMenuLayout>
+              <Consultantprofile/>
             </SideMenuLayout>
           ),
         },

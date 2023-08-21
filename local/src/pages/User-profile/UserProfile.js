@@ -1,14 +1,9 @@
-import React from 'react'
+import React from 'react';
+import "./UserProfile.css";
 
 function UserProfile() {
   return (
     <><div class='cotainer-xl px-4 mt-4' />
-      <nav class="nav nav-borders">
-        <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Profile</a>
-        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-billing-page" target="__blank">Billing</a>
-        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-security-page" target="__blank">Security</a>
-        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-edit-notifications-page" target="__blank">Notifications</a>
-      </nav>
       <hr class="mt-0 mb-4" />
       <div class="row">
         <div class="col-xl-4">
@@ -17,7 +12,7 @@ function UserProfile() {
             <div class="card-body text-center">
               <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
               <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-              <button class="btn btn-primary" type="button">Upload new image</button>
+              <button class="btn btn-success" type="button">Upload new image</button>
             </div>
           </div>
         </div>
@@ -26,47 +21,67 @@ function UserProfile() {
             <div class="card-header">Account Details</div>
             <div class="card-body">
               <form>
-                <div class="mb-3">
-                  <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                  <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username" />
-                </div>
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
-                    <label class="small mb-1" for="inputFirstName">First name</label>
-                    <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie" />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="small mb-1" for="inputLastName">Last name</label>
-                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna" />
+                    <label class="small mb-1" for="inputFirstName">Name</label>
+                    <input class="form-control" id="inputFirstName" type="text" />
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
-                    <label class="small mb-1" for="inputOrgName">Organization name</label>
-                    <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap" />
+                    <label class="small mb-1" for="inputFirstName">Email</label>
+                    <input class="form-control" id="inputFirstName" type="text" />
                   </div>
-                  <div class="col-md-6">
-                    <label class="small mb-1" for="inputLocation">Location</label>
-                    <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA" />
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                  <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com" />
                 </div>
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
-                    <label class="small mb-1" for="inputPhone">Phone number</label>
-                    <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567" />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="small mb-1" for="inputBirthday">Birthday</label>
-                    <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988" />
+                    <label class="small mb-1" for="mobile">Phone number</label>
+                    <input class="form-control" id="mobile" />
                   </div>
                 </div>
-                <button class="btn btn-primary" type="button">Save changes</button>
+                <div class="row gx-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="small mb-1" for="age">Age</label>
+                    <input class="form-control" id="age" />
+                  </div>
+                </div>
+                <div class="row gx-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="dob">Date of birth</label>
+                      <input class="form-control" id="dob" type="date" />
+                    </div>
+                  </div>
+                <button class="btn btn-success" type="button">Save changes</button>
               </form>
             </div>
+            <br></br>
+
+              <div class="card mb-4">
+                <div class="card-header">Change password</div>
+                <div class="card-body">
+                  <form>
+                    <div class="row gx-3 mb-3">
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="currentPass">Current password</label>
+                        <input class="form-control" id="currentPass" type="text" />
+                      </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="newPass">New password</label>
+                        <input class="form-control" id="newPass" type="text" />
+                      </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="confirmNewPass">Cinfirm new password</label>
+                        <input class="form-control" id="confirmNewPass" />
+                      </div>
+                    </div>
+                    <button class="btn btn-success" type="button">Update password</button>
+                  </form>
+                </div>
+              </div>
           </div>
         </div>
       </div>
