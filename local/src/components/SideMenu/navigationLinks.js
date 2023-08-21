@@ -60,7 +60,7 @@ export const sideNavigationConsultantLinks = [
   {
     icon: <RiProfileFill className="icon-css text-success" size={22} />,
     title: "Profile",
-    to: "/userProfile",
+    to: "/consultantprofile",
   },
 ];
 
