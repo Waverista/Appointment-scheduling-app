@@ -822,7 +822,7 @@ export default function Home() {
                 <br />
                 <br />
                 <br />
-                &copy; 2022 <a href="/home">Consulter</a> | All Rights Reserved
+                &copy; 2022 <a href="/home">The Jobs</a> | All Rights Reserved
               </div>
 
               <div className="footer-bottom-list last_no_bullet">
