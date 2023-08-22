@@ -9,6 +9,7 @@ import UserProfile from "../pages/User-profile/UserProfile";
 import PrivateRouteInverse from "../utils/PrivateRouteInverse";
 import PrivateRoutes from "../utils/PrivateRoutes";
 import Consultantprofile from "../pages/Consultantprofile/Consultantprofile";
+import Jobseekerlist from "../pages/Jobseekerlist/Jobseekerlist";
 
 function Router() {
   const routes = [
@@ -52,6 +53,14 @@ function Router() {
           element: (
             <SideMenuLayout>
               <Consultantprofile/>
+            </SideMenuLayout>
+          ),
+        },
+        {
+          path: "/Jobseekerlist",
+          element: (
+            <SideMenuLayout>
+              <Jobseekerlist/>
             </SideMenuLayout>
           ),
         },
