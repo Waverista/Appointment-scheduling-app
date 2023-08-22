@@ -49,6 +49,11 @@ export default function Consultant() {
 
   return (
     <>
+      <h1 style={{ color: "#198754", fontWeight: "900", fontSize: "40px" }}>
+        Consultants
+      </h1>
+      <br />
+      <br />
       {consultantsLst.map((consultant) => (
         <Card sx={{ maxWidth: 345 }}>
           <CardActionArea>
@@ -59,7 +64,16 @@ export default function Consultant() {
               alt="IT consultant"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                style={{
+                  color: "#198700",
+                  textTransform: "capitalize",
+                  fontWeight: "500",
+                }}
+              >
                 {consultant.name}
               </Typography>
               <Typography variant="body4" color="text.secondary">
@@ -79,6 +93,11 @@ export default function Consultant() {
             <Button size="small" color="success" onClick={openModal}>
               View
             </Button>
+            {userType === "admin" && (
+              <Button size="small" style={{ color: "red" }}>
+                Delete
+              </Button>
+            )}
           </CardActions>
           <Modal
             isOpen={isModalOpen}
