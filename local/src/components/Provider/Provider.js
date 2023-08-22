@@ -14,11 +14,7 @@ const Provider = (props) => {
       : null
   );
 
-  const [user, setUser] = useState({
-    userType: "",
-    accessToken: "",
-    refreshToken: "",
-  });
+  const [user, setUser] = useState({});
   // console.log(token);
 
   const refreshToken = async () => {
