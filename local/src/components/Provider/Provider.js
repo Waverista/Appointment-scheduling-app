@@ -62,6 +62,7 @@ const Provider = (props) => {
   );
 
   const [appointmentsLst, setAppointmentsLst] = useState([]);
+  const [consultantsLst, setConsultantsLst] = useState([]);
 
   useEffect(() => {}, []);
 
@@ -75,6 +76,8 @@ const Provider = (props) => {
         axiosJWT,
         appointmentsLst,
         setAppointmentsLst,
+        consultantsLst,
+        setConsultantsLst,
       }}
     >
       {props.children}

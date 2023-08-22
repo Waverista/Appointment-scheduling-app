@@ -159,7 +159,9 @@ const Appointments = () => {
   if (userType === "job-seeker") {
     return (
       <div style={{ marginRight: "50px" }}>
-        <h1 style={{ color: "#198754", fontWeight: "900" }}>Appointments</h1>
+        <h1 style={{ color: "#198754", fontWeight: "900", fontSize: "40px" }}>
+          Appointments
+        </h1>
         <br />
         <br />
         <table className="table table-striped">
