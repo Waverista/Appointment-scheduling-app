@@ -12,7 +12,9 @@ function Consultantprofile() {
             <div class="card-body text-center">
               <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
               <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-              <button class="btn btn-success" type="button">Upload new image</button>
+              <label class="form-label" for="customFile">Upload your image</label>
+              <input type="file" class="form-control" id="customFile" accept="image/png, image/jpeg"/>
+              {/* <button size="small" color="success" class="btn btn-success" type="button">Upload image</button> */}
             </div>
           </div>
         </div>
@@ -69,6 +71,7 @@ function Consultantprofile() {
                       <input class="form-control" id="startTime" type="time" />
                     </div>
                   </div>
+
                   <div class="row gx-3 mb-3">
                     <div class="col-md-6">
                       <label class="small mb-1" for="endTime">End time</label>

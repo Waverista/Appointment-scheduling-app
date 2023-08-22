@@ -42,7 +42,7 @@ export const sideNavigationAdminLinks = [
   {
     icon: <MdPeople className="icon-css text-success" size={22} />,
     title: "Job Seeker",
-    to: "/jobSeeker",
+    to: "/jobseekerlist",
   },
 ];
 
@@ -77,7 +77,7 @@ export const sideNavigationJSeekerLinks = [
   },
   {
     icon: <FaUserTie className="icon-css text-success" size={22} />,
-    title: "Consultant",
+    title: "Consultants",
     to: "/consultant",
   },
   {
