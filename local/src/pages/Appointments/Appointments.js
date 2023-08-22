@@ -159,11 +159,17 @@ const Appointments = () => {
   if (userType === "job-seeker") {
     return (
       <div style={{ marginRight: "50px" }}>
-        <h1 style={{ color: "#198754", fontWeight: "900", fontSize: "40px" }}>
+        <h1
+          style={{
+            color: "#198754",
+            fontWeight: "900",
+            fontSize: 45,
+            marginBottom: 3,
+          }}
+        >
           Appointments
         </h1>
-        <br />
-        <br />
+        <hr class="mt-0 mb-4" />
         <table className="table table-striped">
           <thead>
             <tr>
@@ -232,9 +238,17 @@ const Appointments = () => {
   if (userType === "consultant") {
     return (
       <div style={{ marginRight: "50px" }}>
-        <h1 style={{ color: "#198754", fontWeight: "900" }}>Appointments</h1>
-        <br />
-        <br />
+        <h1
+          style={{
+            color: "#198754",
+            fontWeight: "900",
+            fontSize: 45,
+            marginBottom: 3,
+          }}
+        >
+          Appointments
+        </h1>
+        <hr class="mt-0 mb-4" />
         <table className="table table-striped">
           <thead>
             <tr>
@@ -333,9 +347,17 @@ const Appointments = () => {
   if (userType === "admin") {
     return (
       <div style={{ marginRight: "50px" }}>
-        <h1 style={{ color: "#198754", fontWeight: "900" }}>Appointments</h1>
-        <br />
-        <br />
+        <h1
+          style={{
+            color: "#198754",
+            fontWeight: "900",
+            fontSize: 45,
+            marginBottom: 3,
+          }}
+        >
+          Appointments
+        </h1>
+        <hr class="mt-0 mb-4" />
         <table className="table table-striped">
           <thead>
             <tr>

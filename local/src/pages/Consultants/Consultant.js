@@ -1,12 +1,14 @@
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { Button, CardActionArea, CardActions, Grid } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useContext, useEffect, useState } from "react";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
 import { ProviderContext } from "../../components/Provider/Provider";
+import "./Consultant.css";
 
 export default function Consultant() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,7 +61,7 @@ export default function Consultant() {
         }
       );
 
-      setAvailableTime(res.data);
+      if (res.data.length !== 0) setAvailableTime(res.data);
     } catch (err) {
       console.log(err);
       Swal.fire({
@@ -142,69 +144,80 @@ export default function Consultant() {
   const [userType] = useState(sessionStorage.getItem("userType"));
 
   return (
-    <>
-      <h1 style={{ color: "#198754", fontWeight: "900", fontSize: "40px" }}>
+    <div style={{ marginRight: "50px" }}>
+      <h1
+        style={{
+          color: "#198754",
+          fontWeight: "900",
+          fontSize: 45,
+          marginBottom: 3,
+        }}
+      >
         Consultants
       </h1>
+      <hr class="mt-0 mb-4" />
       <br />
       <br />
-      {consultantsLst !== null &&
-        consultantsLst.map((consultant) => (
-          <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="140"
-                image="https://www.seekpng.com/png/detail/131-1314988_icon-consulting-anonymous-proxy-icon.png"
-                alt="IT consultant"
-              />
-              <CardContent>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="div"
-                  style={{
-                    color: "#198700",
-                    textTransform: "capitalize",
-                    fontWeight: "500",
-                  }}
-                >
-                  {consultant.name}
-                </Typography>
-                <Typography variant="body4" color="text.secondary">
-                  Email: {consultant.email}
-                </Typography>
-                <br />
-                <Typography variant="body4" color="text.secondary">
-                  Country: {consultant.country}
-                </Typography>
-                <br />
-                <Typography variant="body4" color="text.secondary">
-                  Job Type: {consultant.job_type}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button
-                size="small"
-                color="success"
-                onClick={() => openModal(consultant)}
-              >
-                View
-              </Button>
-              {userType === "admin" && (
-                <Button
-                  size="small"
-                  style={{ color: "red" }}
-                  onClick={() => deleteUser(consultant.id)}
-                >
-                  Delete
-                </Button>
-              )}
-            </CardActions>
-          </Card>
-        ))}
-
+      <Grid container spacing={2}>
+        {consultantsLst !== null &&
+          consultantsLst.map((consultant) => (
+            <Grid item xs={12} sm={6} md={3} lg={2} key={consultant.email}>
+              <Card sx={{ maxWidth: 345 }} style={{ marginBottom: "30px" }}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image="https://www.seekpng.com/png/detail/131-1314988_icon-consulting-anonymous-proxy-icon.png"
+                    alt="IT consultant"
+                  />
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      style={{
+                        color: "#198700",
+                        textTransform: "capitalize",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {consultant.name}
+                    </Typography>
+                    <Typography variant="body4" color="text.secondary">
+                      Email: {consultant.email}
+                    </Typography>
+                    <br />
+                    <Typography variant="body4" color="text.secondary">
+                      Country: {consultant.country}
+                    </Typography>
+                    <br />
+                    <Typography variant="body4" color="text.secondary">
+                      Job Type: {consultant.job_type}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button
+                    size="small"
+                    color="success"
+                    onClick={() => openModal(consultant)}
+                  >
+                    View
+                  </Button>
+                  {userType === "admin" && (
+                    <Button
+                      size="small"
+                      style={{ color: "red" }}
+                      onClick={() => deleteUser(consultant.id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+      </Grid>
       {selectedConsultant && (
         <Modal
           isOpen={isModalOpen}
@@ -249,6 +262,7 @@ export default function Consultant() {
               </button>
             </li>
           </ul>
+          <hr className="mt-0 mb-4" />
           <div className="tab-content" id="pills-tabContent">
             <div
               className="tab-pane fade show active"
@@ -258,7 +272,6 @@ export default function Consultant() {
             >
               <>
                 <div className="cotainer-xl px-4 mt-4" />
-                <hr className="mt-0 mb-4" />
                 <div className="row">
                   <div className="col-xl-4">
                     <div className="card mb-4 mb-xl-0">
@@ -354,7 +367,7 @@ export default function Consultant() {
             role="tabpanel"
             aria-labelledby="pills-profile-tab"
           >
-            {availableTime !== null &&
+            {availableTime !== null ? (
               availableTime.map((time) => (
                 <div key={time.id} className="form-check">
                   <button
@@ -368,18 +381,38 @@ export default function Consultant() {
                     {time.dateTime}
                   </label>
                 </div>
-              ))}
+              ))
+            ) : (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  padding: "2px",
+                  backgroundColor: "transparent",
+                }}
+              >
+                There are no available times.
+              </div>
+            )}
           </div>
 
           <button
             type="button"
             onClick={closeModal}
-            className="btn btn-success"
+            style={{
+              position: "absolute",
+              top: "5px",
+              right: "10px",
+              padding: "2px",
+              backgroundColor: "transparent",
+            }}
           >
-            Close
+            <AiOutlineCloseCircle size={25} color="red" />
           </button>
         </Modal>
       )}
-    </>
+    </div>
   );
 }
