@@ -150,9 +150,94 @@ const Appointments = () => {
       });
     }
   };
+
   useEffect(() => {
     getAppointments();
   }, []);
+
+  const deleteAppointment = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: `Are you sure you want to delete the appointment?`,
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (result.isConfirmed) {
+        await axiosJWT.delete(`http://localhost:4000/appointments/${id}`, {
+          headers: {
+            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+          },
+        });
+        window.location.reload(); // Reloading the page might not be the best practice; consider alternatives
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          text: `Appointment has been deleted.`,
+          showConfirmButton: false,
+          timer: 5000,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Server Error.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
+  };
+
+  const updateAppointmentState = async (id, state) => {
+    try {
+      const result = await Swal.fire({
+        title: `Are you sure you want to ${state} the appointment?`,
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: `Yes, ${state} it!`,
+      });
+
+      if (result.isConfirmed) {
+        await axiosJWT.patch(
+          `http://localhost:4000/appointments/${id}/status-change`,
+          {
+            status: `${state}`,
+          },
+          {
+            headers: {
+              authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+            },
+          }
+        );
+        window.location.reload(); // Reloading the page might not be the best practice; consider alternatives
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          text: `Appointment state has been updated.`,
+          showConfirmButton: false,
+          timer: 5000,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Server Error.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
+  };
 
   const [userType] = useState(sessionStorage.getItem("userType"));
 
@@ -220,6 +305,7 @@ const Appointments = () => {
                       type="button"
                       className="btn btn-danger"
                       style={{ borderRadius: "50px" }}
+                      onClick={() => deleteAppointment(item.id)}
                     >
                       <AiFillDelete
                         style={{ marginBottom: "4px", marginRight: "4px" }}
@@ -275,7 +361,7 @@ const Appointments = () => {
                   <div
                     className={`btn btn-lg ${
                       item.status === "complete"
-                        ? "btn-secondary"
+                        ? "btn-secondary disabled"
                         : item.status === "active"
                         ? "btn-primary"
                         : "disabled"
@@ -284,6 +370,7 @@ const Appointments = () => {
                       borderRadius: "50px",
                       width: "120px",
                       fontSize: "12px",
+                      cursor: "default",
                     }}
                   >
                     {item.status === "complete"
@@ -301,6 +388,9 @@ const Appointments = () => {
                         item.status !== "active" && "disabled"
                       }`}
                       style={{ borderRadius: "50px" }}
+                      onClick={() =>
+                        updateAppointmentState(item.id, "complete")
+                      }
                     >
                       <MdIncompleteCircle
                         style={{ marginBottom: "4px", marginRight: "4px" }}
@@ -314,6 +404,7 @@ const Appointments = () => {
                         item.status !== "active" && "disabled"
                       }`}
                       style={{ borderRadius: "50px" }}
+                      onClick={() => updateAppointmentState(item.id, "reject")}
                     >
                       <MdCancel
                         style={{
@@ -329,6 +420,7 @@ const Appointments = () => {
                       type="button"
                       className="btn btn-danger"
                       style={{ borderRadius: "50px" }}
+                      onClick={() => deleteAppointment(item.id)}
                     >
                       <AiFillDelete
                         style={{ marginBottom: "4px", marginRight: "4px" }}
@@ -412,6 +504,9 @@ const Appointments = () => {
                         item.status !== "active" && "disabled"
                       }`}
                       style={{ borderRadius: "50px" }}
+                      onClick={() =>
+                        updateAppointmentState(item.id, "complete")
+                      }
                     >
                       <MdIncompleteCircle
                         style={{ marginBottom: "4px", marginRight: "4px" }}
@@ -425,6 +520,7 @@ const Appointments = () => {
                         item.status !== "active" && "disabled"
                       }`}
                       style={{ borderRadius: "50px" }}
+                      onClick={() => updateAppointmentState(item.id, "reject")}
                     >
                       <MdCancel
                         style={{
@@ -440,6 +536,7 @@ const Appointments = () => {
                       type="button"
                       className="btn btn-danger"
                       style={{ borderRadius: "50px" }}
+                      onClick={() => deleteAppointment(item.id)}
                     >
                       <AiFillDelete
                         style={{ marginBottom: "4px", marginRight: "4px" }}
