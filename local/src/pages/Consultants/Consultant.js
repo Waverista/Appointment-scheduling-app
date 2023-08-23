@@ -1,12 +1,11 @@
-import { Button, CardActionArea, CardActions, Grid } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { GiTimeBomb } from "react-icons/gi";
+import { MdSendTimeExtension } from "react-icons/md";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
+import ConsultantList from "../../components/ConsultantList/ConsultantList";
+import ContactForm from "../../components/ContactForm/ContactForm";
 import { ProviderContext } from "../../components/Provider/Provider";
 import "./Consultant.css";
 
@@ -14,6 +13,7 @@ export default function Consultant() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [availableTime, setAvailableTime] = useState(null);
   const [selectedConsultant, setSelectedConsultant] = useState(null);
+  const [showAvailableTimeTab, setShowAvailableTimeTab] = useState(false);
 
   const openModal = (consultant) => {
     setSelectedConsultant(consultant);
@@ -37,7 +37,7 @@ export default function Consultant() {
           authorization: "Bearer " + sessionStorage.getItem("accessToken"),
         },
       });
-      setConsultantsLst(res.data);
+      setConsultantsLst(res.data.reverse());
     } catch (err) {
       console.log(err);
       Swal.fire({
@@ -74,57 +74,104 @@ export default function Consultant() {
     }
   };
 
-  const submitAppointment = async (id) => {
+  const submitAppointment = async (id, consultantName) => {
     try {
-      const res = await axiosJWT.post(
-        `http://localhost:4000/appointments/create`,
-        {
-          available_time_id: id,
-        },
-        {
-          headers: {
-            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-          },
-        }
-      );
-      closeModal();
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        text: "Appointment Submit.",
-        showConfirmButton: false,
-        timer: 5000,
+      const result = await Swal.fire({
+        title: `Confirm Submission`,
+        text: `Are you sure you want to submit the appointment for ${consultantName}?`,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, submit it!",
       });
+
+      if (result.isConfirmed) {
+        await axiosJWT.post(
+          `http://localhost:4000/appointments/create`,
+          {
+            available_time_id: id,
+          },
+          {
+            headers: {
+              authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+            },
+          }
+        );
+        closeModal();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Appointment Submitted",
+          text: "Your appointment has been successfully submitted.",
+          showConfirmButton: false,
+          timer: 5000,
+        });
+      }
     } catch (err) {
       console.log(err);
       Swal.fire({
         position: "center",
         icon: "error",
-        text: "Server Error.",
+        title: "Error",
+        text: "An error occurred while submitting the appointment.",
         showConfirmButton: false,
         timer: 5000,
       });
     }
   };
 
-  const deleteUser = async (id) => {
+  const deleteUser = async (id, consultantName) => {
+    // try {
+    //   await axiosJWT.delete(`http://localhost:4000/consultants/${id}`, {
+    //     headers: {
+    //       authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+    //     },
+    //   });
+    //   window.location.reload();
+    //   Swal.fire({
+    //     position: "center",
+    //     icon: "success",
+    //     text: "Appointment Submit.",
+    //     showConfirmButton: false,
+    //     timer: 5000,
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    //   Swal.fire({
+    //     position: "center",
+    //     icon: "error",
+    //     text: "Server Error.",
+    //     showConfirmButton: false,
+    //     timer: 5000,
+    //   });
+    // }
     try {
-      const res = await axiosJWT.delete(
-        `http://localhost:4000/consultants/${id}`,
-        {
+      const result = await Swal.fire({
+        title: `Are you sure you want to delete ${consultantName}?`,
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (result.isConfirmed) {
+        await axiosJWT.delete(`http://localhost:4000/consultants/${id}`, {
           headers: {
             authorization: "Bearer " + sessionStorage.getItem("accessToken"),
           },
-        }
-      );
-      window.location.reload();
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        text: "Appointment Submit.",
-        showConfirmButton: false,
-        timer: 5000,
-      });
+        });
+        window.location.reload(); // Reloading the page might not be the best practice; consider alternatives
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          text: `${consultantName} has been deleted.`,
+          showConfirmButton: false,
+          timer: 5000,
+        });
+      }
     } catch (err) {
       console.log(err);
       Swal.fire({
@@ -158,66 +205,13 @@ export default function Consultant() {
       <hr class="mt-0 mb-4" />
       <br />
       <br />
-      <Grid container spacing={2}>
-        {consultantsLst !== null &&
-          consultantsLst.map((consultant) => (
-            <Grid item xs={12} sm={6} md={3} lg={2} key={consultant.email}>
-              <Card sx={{ maxWidth: 345 }} style={{ marginBottom: "30px" }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image="https://www.seekpng.com/png/detail/131-1314988_icon-consulting-anonymous-proxy-icon.png"
-                    alt="IT consultant"
-                  />
-                  <CardContent>
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="div"
-                      style={{
-                        color: "#198700",
-                        textTransform: "capitalize",
-                        fontWeight: "500",
-                      }}
-                    >
-                      {consultant.name}
-                    </Typography>
-                    <Typography variant="body4" color="text.secondary">
-                      Email: {consultant.email}
-                    </Typography>
-                    <br />
-                    <Typography variant="body4" color="text.secondary">
-                      Country: {consultant.country}
-                    </Typography>
-                    <br />
-                    <Typography variant="body4" color="text.secondary">
-                      Job Type: {consultant.job_type}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button
-                    size="small"
-                    color="success"
-                    onClick={() => openModal(consultant)}
-                  >
-                    View
-                  </Button>
-                  {userType === "admin" && (
-                    <Button
-                      size="small"
-                      style={{ color: "red" }}
-                      onClick={() => deleteUser(consultant.id)}
-                    >
-                      Delete
-                    </Button>
-                  )}
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-      </Grid>
+      {/* {ConsultantList(consultantsLst, openModal, userType, deleteUser)} */}
+      <ConsultantList
+        consultantsLst={consultantsLst}
+        openModal={openModal}
+        userType={userType}
+        deleteUser={deleteUser}
+      />
       {selectedConsultant && (
         <Modal
           isOpen={isModalOpen}
@@ -227,10 +221,10 @@ export default function Consultant() {
               width: "800px",
               height: "700px",
               margin: "auto",
+              overflow: `${showAvailableTimeTab ? "auto" : "hidden"}`,
             },
           }}
         >
-          {console.log("selectedConsultant ", selectedConsultant)}
           <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li className="nav-item" role="presentation">
               <button
@@ -243,6 +237,7 @@ export default function Consultant() {
                 role="tab"
                 aria-controls="pills-home"
                 aria-selected="true"
+                onClick={() => setShowAvailableTimeTab(false)}
               >
                 Profile
               </button>
@@ -257,6 +252,7 @@ export default function Consultant() {
                 role="tab"
                 aria-controls="pills-profile"
                 aria-selected="false"
+                onClick={() => setShowAvailableTimeTab(true)}
               >
                 Available time
               </button>
@@ -369,17 +365,37 @@ export default function Consultant() {
           >
             {availableTime !== null ? (
               availableTime.map((time) => (
-                <div key={time.id} className="form-check">
-                  <button
-                    type="button"
-                    onClick={() => submitAppointment(time.id)}
-                    className="btn btn-success"
+                <div
+                  key={time.id}
+                  className="form-check d-flex justify-content-between"
+                  style={{
+                    backgroundColor: "#DDFFDD",
+                    padding: 5,
+                    borderRadius: 5,
+                    marginBottom: 3,
+                  }}
+                >
+                  <label
+                    className="form-check-label"
+                    for="flexRadioDefault1"
+                    style={{ marginTop: 8, marginLeft: 5 }}
                   >
-                    Submit
-                  </button>
-                  <label className="form-check-label" for="flexRadioDefault1">
+                    <GiTimeBomb style={{ marginRight: 5, color: "#198754" }} />
                     {time.dateTime}
                   </label>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      submitAppointment(time.id, selectedConsultant.name)
+                    }
+                    className="btn btn-success"
+                    style={{ backgroundColor: "#31d186 !important" }}
+                  >
+                    Send Appointment
+                    <MdSendTimeExtension
+                      style={{ marginLeft: 5, color: "orange" }}
+                    />
+                  </button>
                 </div>
               ))
             ) : (
@@ -396,6 +412,10 @@ export default function Consultant() {
                 There are no available times.
               </div>
             )}
+            <div style={{ marginTop: 30 }}>
+              <h6>If You want send a email to the consultant</h6>
+              <ContactForm consultant={selectedConsultant} />
+            </div>
           </div>
 
           <button
@@ -416,3 +436,68 @@ export default function Consultant() {
     </div>
   );
 }
+
+// function ConsultantList(consultantsLst, openModal, userType, deleteUser) {
+//   return (
+//     <Grid container spacing={2}>
+//       {consultantsLst !== null &&
+//         consultantsLst.map((consultant) => (
+//           <Grid item xs={12} sm={6} md={3} lg={2} key={consultant.email}>
+//             <Card sx={{ maxWidth: 345 }} style={{ marginBottom: "30px" }}>
+//               <CardActionArea>
+//                 <CardMedia
+//                   component="img"
+//                   height="200"
+//                   image="https://www.seekpng.com/png/detail/131-1314988_icon-consulting-anonymous-proxy-icon.png"
+//                   alt="IT consultant"
+//                 />
+//                 <CardContent>
+//                   <Typography
+//                     gutterBottom
+//                     variant="h5"
+//                     component="div"
+//                     style={{
+//                       color: "#198700",
+//                       textTransform: "capitalize",
+//                       fontWeight: "500",
+//                     }}
+//                   >
+//                     {consultant.name}
+//                   </Typography>
+//                   <Typography variant="body4" color="text.secondary">
+//                     Email: {consultant.email}
+//                   </Typography>
+//                   <br />
+//                   <Typography variant="body4" color="text.secondary">
+//                     Country: {consultant.country}
+//                   </Typography>
+//                   <br />
+//                   <Typography variant="body4" color="text.secondary">
+//                     Job Type: {consultant.job_type}
+//                   </Typography>
+//                 </CardContent>
+//               </CardActionArea>
+//               <CardActions>
+//                 <Button
+//                   size="small"
+//                   color="success"
+//                   onClick={() => openModal(consultant)}
+//                 >
+//                   View
+//                 </Button>
+//                 {userType === "admin" && (
+//                   <Button
+//                     size="small"
+//                     style={{ color: "red" }}
+//                     onClick={() => deleteUser(consultant.id)}
+//                   >
+//                     Delete
+//                   </Button>
+//                 )}
+//               </CardActions>
+//             </Card>
+//           </Grid>
+//         ))}
+//     </Grid>
+//   );
+// }

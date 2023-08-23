@@ -1,6 +1,37 @@
+import { useContext, useEffect } from "react";
+import Swal from "sweetalert2";
+import { ProviderContext } from "../../components/Provider/Provider";
 import "./UserProfile.css";
 
 function UserProfile() {
+  const { axiosJWT } = useContext(ProviderContext);
+
+  const getCurrentUser = async (id) => {
+    try {
+      const res = await axiosJWT.get(
+        `http://localhost:4000/job-seekers/${id}`,
+        {
+          headers: {
+            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Server Error.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
+  };
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
   return (
     <div style={{ marginRight: 42, marginTop: 0 }}>
       <h1
@@ -126,7 +157,6 @@ function UserProfile() {
               </form>
             </div>
           </div>
-
           <br />
           <br />
           <br />
