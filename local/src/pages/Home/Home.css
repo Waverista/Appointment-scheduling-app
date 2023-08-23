@@ -19,10 +19,10 @@ a:active {
   border: 0;
 }
 
-input:focus {
+/* input:focus {
   outline: none;
-}
-
+} */
+/* 
 input::-moz-focus-inner {
   border: 0;
   display: none;
@@ -31,9 +31,9 @@ input::-moz-focus-inner {
 input::-webkit-focus-inner {
   border: 0;
   display: none;
-}
+} */
 
-input:-webkit-autofill,
+/* input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
@@ -43,42 +43,40 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-}
-
+} */
+/* 
 ::-webkit-input-placeholder {
   color: #666;
-  opacity: 1; /* Firefox */
+  opacity: 1; 
 }
 
 ::-moz-placeholder {
   color: #666;
-  opacity: 1; /* Firefox */
+  opacity: 1; 
 }
 
 :-ms-input-placeholder {
   color: #666;
-  opacity: 1; /* Firefox */
+  opacity: 1; 
 }
 
 ::-ms-input-placeholder {
   color: #666;
-  opacity: 1; /* Firefox */
+  opacity: 1; 
 }
 
 ::placeholder {
   color: #666;
-  opacity: 1; /* Firefox */
+  opacity: 1; 
 }
 
 :-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
   color: #666;
 }
 
 ::-ms-input-placeholder {
-  /* Microsoft Edge */
   color: #666;
-}
+} */
 
 table {
   border-collapse: collapse;
@@ -107,12 +105,12 @@ form {
   position: relative;
 }
 
-.form-control:focus {
+/* .form-control:focus {
   outline: none !important;
   border: none !important;
   -webkit-box-shadow: 0 0 0;
   box-shadow: 0 0 0;
-}
+} */
 
 h1 a,
 h2 a,
@@ -164,8 +162,6 @@ button:focus {
   text-decoration: none;
 }
 
-input,
-textarea,
 button {
   border: 0px;
 }

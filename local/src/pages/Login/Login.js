@@ -61,6 +61,7 @@ function Login() {
       sessionStorage.setItem("accessToken", accessToken);
       sessionStorage.setItem("refreshToken", refreshToken);
       sessionStorage.setItem("userType", userType);
+      sessionStorage.setItem("userEmail", email);
       setToken(sessionStorage.getItem("accessToken"));
 
       Swal.fire({
