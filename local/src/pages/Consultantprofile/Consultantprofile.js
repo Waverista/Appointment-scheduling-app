@@ -1,6 +1,152 @@
+import dayjs from "dayjs";
+import { useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import MuiDateTimePicker from "../../components/MuiDateTimePicker";
+import { ProviderContext } from "../../components/Provider/Provider";
 import "./Consultantprofile.css";
 
 function Consultantprofile() {
+  const { axiosJWT } = useContext(ProviderContext);
+
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    email: "",
+    mobile: "",
+    address: "",
+    description: "",
+    country: "",
+    job_type: "",
+  });
+
+  const updateProfileDetails = async (id) => {
+    try {
+      const res = await axiosJWT.patch(
+        `http://localhost:4000/consultants/${id}`,
+        user,
+        {
+          headers: {
+            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+          },
+        }
+      );
+      // console.log("res.data ", res.data);
+
+      sessionStorage.setItem("userName", res.data.name);
+      setUser(res.data);
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Server Error.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
+  };
+
+  const getProfileDetails = async (id) => {
+    try {
+      const res = await axiosJWT.get(
+        `http://localhost:4000/consultants/${id}`,
+        {
+          headers: {
+            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+          },
+        }
+      );
+      // console.log("res.data ", res.data);
+
+      setUser(res.data);
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Server Error.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
+  };
+
+  useEffect(() => {
+    getProfileDetails(sessionStorage.getItem("userId"));
+  }, []);
+
+  // console.log("user ", user);
+  const [selectedStartDate, setSelectedStartDate] = useState(dayjs());
+  const [selectedStartTime, setSelectedStartTime] = useState(dayjs());
+  const [selectedEndDate, setSelectedEndDate] = useState(dayjs());
+  const [selectedEndTime, setSelectedEndTime] = useState(dayjs());
+
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+
+  // Handle the date change
+  const handleStartDateChange = (date) => {
+    setSelectedStartDate(date);
+  };
+
+  // Handle the time change
+  const handleStartTimeChange = (time) => {
+    setSelectedStartTime(time);
+  };
+  // Handle the date change
+  const handleEndDateChange = (date) => {
+    setSelectedEndDate(date);
+  };
+
+  // Handle the time change
+  const handleEndTimeChange = (time) => {
+    setSelectedEndTime(time);
+  };
+
+  useEffect(() => {
+    setStartTime(
+      `${dayjs(selectedStartDate).format("YYYY-MM-DD")} ${dayjs(
+        selectedStartTime
+      ).format("HH:mm")}:00`
+    );
+    setEndTime(
+      `${dayjs(selectedEndDate).format("YYYY-MM-DD")} ${dayjs(
+        selectedEndTime
+      ).format("HH:mm")}:00`
+    );
+  }, [selectedEndTime, selectedEndDate, selectedStartTime, selectedStartDate]);
+
+  // console.log("start_time ", startTime);
+  // console.log("end_time ", endTime);
+
+  const addAvailableTime = async () => {
+    try {
+      const res = await axiosJWT.post(
+        `http://localhost:4000/available-times/create`,
+        {
+          start_time: startTime,
+          end_time: endTime,
+        },
+        {
+          headers: {
+            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+          },
+        }
+      );
+
+      console.log("res ", res.data);
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Server Error.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
+  };
+
   return (
     <div style={{ marginRight: 42, marginTop: 0 }}>
       <h1
@@ -54,6 +200,13 @@ function Consultantprofile() {
                       class="form-control"
                       id="inputFirstName"
                       type="text"
+                      value={user.name}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          name: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -66,6 +219,51 @@ function Consultantprofile() {
                       class="form-control"
                       id="inputFirstName"
                       type="text"
+                      value={user.email}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          email: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+                <div class="row gx-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="small mb-1" for="inputAddress">
+                      Address
+                    </label>
+                    <input
+                      class="form-control"
+                      id="inputAddress"
+                      type="text"
+                      value={user.address}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          address: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+                <div class="row gx-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="small mb-1" for="inputDescription">
+                      Description
+                    </label>
+                    <input
+                      class="form-control"
+                      id="inputDescription"
+                      type="text"
+                      value={user.description}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          description: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -74,7 +272,17 @@ function Consultantprofile() {
                     <label class="small mb-1" for="mobile">
                       Phone number
                     </label>
-                    <input class="form-control" id="mobile" />
+                    <input
+                      class="form-control"
+                      id="mobile"
+                      value={user.mobile}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          mobile: e.target.value,
+                        }))
+                      }
+                    />
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
@@ -87,6 +295,9 @@ function Consultantprofile() {
                       id="jType"
                       aria-label="Dropdown"
                     >
+                      <option value={0} selected>
+                        {user.job_type}
+                      </option>
                       <option value={0}>IT</option>
                       <option value={0}>Networking</option>
                       <option value={0}>Human resource</option>
@@ -98,10 +309,24 @@ function Consultantprofile() {
                     <label class="small mb-1" for="country">
                       Country
                     </label>
-                    <input class="form-control" id="country" />
+                    <input
+                      class="form-control"
+                      id="country"
+                      value={user.country}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          country: e.target.value,
+                        }))
+                      }
+                    />
                   </div>
                 </div>
-                <button class="btn btn-success" type="button">
+                <button
+                  class="btn btn-success"
+                  type="button"
+                  onClick={() => updateProfileDetails(user.id)}
+                >
                   Save changes
                 </button>
               </form>
@@ -111,30 +336,62 @@ function Consultantprofile() {
             <div class="card-header">Add available time</div>
             <div class="card-body">
               <form>
-                <div class="row gx-3 mb-3">
-                  <div class="col-md-6">
+                <div className="d-flex ">
+                  <div className="">
+                    <label class="small mb-1" for="startTime">
+                      Start date
+                    </label>
+                    <MuiDateTimePicker
+                      time={false}
+                      onDateChange={handleStartDateChange}
+                    />
+                  </div>
+                  &nbsp; &nbsp; &nbsp; &nbsp;
+                  <div className="">
                     <label class="small mb-1" for="startTime">
                       Start time
                     </label>
-                    <input class="form-control" id="startTime" type="time" />
+                    <MuiDateTimePicker
+                      variant="desktop"
+                      date={false}
+                      onTimeChange={handleStartTimeChange}
+                    />
                   </div>
                 </div>
-
-                <div class="row gx-3 mb-3">
-                  <div class="col-md-6">
+                <div className="d-flex" style={{ marginTop: 20 }}>
+                  <div className="">
+                    <label class="small mb-1" for="startTime">
+                      End date
+                    </label>
+                    <MuiDateTimePicker
+                      time={false}
+                      onDateChange={handleEndDateChange}
+                    />
+                  </div>
+                  &nbsp; &nbsp; &nbsp; &nbsp;
+                  <div className="">
                     <label class="small mb-1" for="endTime">
                       End time
                     </label>
-                    <input class="form-control" id="endTime" type="time" />
+                    <MuiDateTimePicker
+                      variant="desktop"
+                      date={false}
+                      onTimeChange={handleEndTimeChange}
+                    />
                   </div>
                 </div>
-                <button class="btn btn-success" type="button">
+                <br />
+                <button
+                  class="btn btn-success"
+                  type="button"
+                  onClick={addAvailableTime}
+                >
                   Add time
                 </button>
               </form>
             </div>
           </div>
-          <div class="card mb-4">
+          {/* <div class="card mb-4">
             <div class="card-header">Change password</div>
             <div class="card-body">
               <form>
@@ -167,7 +424,7 @@ function Consultantprofile() {
                 </button>
               </form>
             </div>
-          </div>
+          </div> */}
           <br />
           <br />
           <br />

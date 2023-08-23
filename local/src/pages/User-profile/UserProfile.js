@@ -1,10 +1,17 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { ProviderContext } from "../../components/Provider/Provider";
 import "./UserProfile.css";
 
 function UserProfile() {
   const { axiosJWT } = useContext(ProviderContext);
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    age: "",
+    email: "",
+    mobile: "",
+  });
 
   const getCurrentUser = async (id) => {
     try {
@@ -16,6 +23,34 @@ function UserProfile() {
           },
         }
       );
+      setUser(res.data);
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "Server Error.",
+        showConfirmButton: false,
+        timer: 5000,
+      });
+    }
+  };
+
+  const updateProfileDetails = async (id) => {
+    try {
+      const res = await axiosJWT.patch(
+        `http://localhost:4000/job-seekers/${id}`,
+        user,
+        {
+          headers: {
+            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+          },
+        }
+      );
+      // console.log("res.data ", res.data);
+
+      sessionStorage.setItem("userName", res.data.name);
+      setUser(res.data);
     } catch (err) {
       console.log(err);
       Swal.fire({
@@ -29,7 +64,7 @@ function UserProfile() {
   };
 
   useEffect(() => {
-    getCurrentUser();
+    getCurrentUser(sessionStorage.getItem("userId"));
   }, []);
 
   return (
@@ -78,6 +113,13 @@ function UserProfile() {
                       class="form-control"
                       id="inputFirstName"
                       type="text"
+                      value={user.name}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          name: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -90,6 +132,13 @@ function UserProfile() {
                       class="form-control"
                       id="inputFirstName"
                       type="text"
+                      value={user.email}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          email: e.target.value,
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -98,7 +147,17 @@ function UserProfile() {
                     <label class="small mb-1" for="mobile">
                       Phone number
                     </label>
-                    <input class="form-control" id="mobile" />
+                    <input
+                      class="form-control"
+                      id="mobile"
+                      value={user.mobile}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          mobile: e.target.value,
+                        }))
+                      }
+                    />
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
@@ -106,24 +165,38 @@ function UserProfile() {
                     <label class="small mb-1" for="age">
                       Age
                     </label>
-                    <input class="form-control" id="age" />
+                    <input
+                      class="form-control"
+                      id="age"
+                      value={user.age}
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          age: e.target.value,
+                        }))
+                      }
+                    />
                   </div>
                 </div>
-                <div class="row gx-3 mb-3">
+                {/* <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="dob">
                       Date of birth
                     </label>
                     <input class="form-control" id="dob" type="date" />
                   </div>
-                </div>
-                <button class="btn btn-success" type="button">
+                </div> */}
+                <button
+                  class="btn btn-success"
+                  type="button"
+                  onClick={() => updateProfileDetails(user.id)}
+                >
                   Save changes
                 </button>
               </form>
             </div>
           </div>
-          <div class="card mb-4">
+          {/* <div class="card mb-4">
             <div class="card-header">Change password</div>
             <div class="card-body">
               <form>
@@ -156,7 +229,7 @@ function UserProfile() {
                 </button>
               </form>
             </div>
-          </div>
+          </div> */}
           <br />
           <br />
           <br />

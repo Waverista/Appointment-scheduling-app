@@ -30,7 +30,7 @@ function App() {
                 fontSize: "18px",
               }}
             >
-              Name: {user.userType}
+              {sessionStorage.getItem("userName")}
             </h5>
             <h6 style={{ fontSize: "15px" }}>
               {sessionStorage.getItem("userType")}

@@ -51,13 +51,15 @@ function Login() {
         );
       }
 
-      const { accessToken, refreshToken } = res.data;
+      const { id, name, role, accessToken, refreshToken } = res.data;
       setUser({
         userType: userType,
         accessToken: accessToken,
         refreshToken: refreshToken,
       });
 
+      sessionStorage.setItem("userId", id);
+      sessionStorage.setItem("userName", name);
       sessionStorage.setItem("accessToken", accessToken);
       sessionStorage.setItem("refreshToken", refreshToken);
       sessionStorage.setItem("userType", userType);
