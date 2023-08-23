@@ -7,8 +7,8 @@ const ContactForm = ({ consultant }) => {
   const [data, setData] = useState({
     toName: consultant.name,
     toEmail: consultant.email,
-    fromName: "",
-    fromEmail: "",
+    fromName: sessionStorage.getItem("userName"),
+    fromEmail: sessionStorage.getItem("userEmail"),
     subject: "",
     message: "",
   });
