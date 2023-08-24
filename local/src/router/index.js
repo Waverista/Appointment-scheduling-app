@@ -4,7 +4,7 @@ import Appointments from "../pages/Appointments/Appointments";
 import ConsultantProfile from "../pages/ConsultantProfile/ConsultantProfile";
 import Consultant from "../pages/Consultants/Consultant";
 import Home from "../pages/Home/Home";
-import Jobseekerlist from "../pages/Jobseekerlist/Jobseekerlist";
+import JobSeekerList from "../pages/JobSeekerList/JobSeekerList";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import UserProfile from "../pages/User-profile/UserProfile";
@@ -57,10 +57,10 @@ function Router() {
           ),
         },
         {
-          path: "/Jobseekerlist",
+          path: "/JobSeekerList",
           element: (
             <SideMenuLayout>
-              <Jobseekerlist />
+              <JobSeekerList />
             </SideMenuLayout>
           ),
         },

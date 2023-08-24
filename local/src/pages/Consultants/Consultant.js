@@ -197,7 +197,7 @@ export default function Consultant() {
                               <input
                                 className="form-control"
                                 id="mobile"
-                                value="mobile"
+                                value={selectedConsultant.mobile}
                                 disabled
                               />
                             </div>
@@ -213,7 +213,7 @@ export default function Consultant() {
                               className="form-control"
                               id="exampleFormControlTextarea1"
                               rows="3"
-                              value="Description"
+                              value={selectedConsultant.description}
                               disabled
                             ></textarea>
                           </div>
