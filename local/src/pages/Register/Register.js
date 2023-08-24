@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import logo from "../../assets/logo/1.png";
+import { handleSignUp } from "../../utils/EndpointUtils";
 
 function Register() {
   const navigate = useNavigate();
@@ -11,89 +10,6 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    try {
-      let res;
-      if (userType === "admin") {
-        console.log("admin");
-        console.log({
-          email: email,
-          password: password,
-          user_name: name,
-        });
-
-        res = await axios.post(
-          "http://localhost:4000/authentication/admin/register/secretRoute",
-          {
-            email: email,
-            password: password,
-            user_name: name,
-          }
-        );
-      } else if (userType === "consultant") {
-        console.log("consultant");
-        console.log({
-          email: email,
-          password: password,
-          name: name,
-          country: "sl",
-          job_type: "sdfdlskf",
-        });
-
-        res = await axios.post(
-          "http://localhost:4000/authentication/consultant/register",
-          {
-            email: email,
-            password: password,
-            name: name,
-            country: "sl",
-            job_type: "sdfdlskf",
-          }
-        );
-      } else {
-        console.log("job seeker");
-        console.log({
-          email: email,
-          password: password,
-          name: name,
-          age: "76",
-        });
-
-        res = await axios.post(
-          "http://localhost:4000/authentication/js/register",
-          {
-            email: email,
-            password: password,
-            name: name,
-            age: "76",
-          }
-        );
-      }
-
-      console.log(res);
-
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        text: "Success! You are now logged in.",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-
-      navigate("/home");
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "Registration Error! User already exists or server issue. Please try again later.",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-    }
-  };
 
   return (
     <div className="register template d-flex justify-content-center align-items-center 100-w vh-100 bg-success">
@@ -109,9 +25,14 @@ function Register() {
           width: "550px",
           opacity: ".1",
         }}
+        alt="logo"
       />
       <div className="50-w p-5 rounded bg-white" style={{ zIndex: "10" }}>
-        <form onSubmit={handleSignUp}>
+        <form
+          onSubmit={(e) =>
+            handleSignUp(e, userType, name, email, password, navigate)
+          }
+        >
           <div className="text-center">
             <img
               src={logo}
@@ -120,6 +41,7 @@ function Register() {
                 borderRadius: "100px",
                 width: "150px",
               }}
+              alt="logo"
             />
           </div>
           <h3 className="text-center">Sign Up</h3>
