@@ -1,10 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import { ProviderContext } from "../../components/Provider/Provider";
+import {
+  getProfileDetails,
+  updateProfileDetails,
+} from "../../utils/EndpointUtils";
 import "./UserProfile.css";
 
 function UserProfile() {
   const { axiosJWT } = useContext(ProviderContext);
+
+  const userId = sessionStorage.getItem("userId");
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -13,58 +18,13 @@ function UserProfile() {
     mobile: "",
   });
 
-  const getCurrentUser = async (id) => {
-    try {
-      const res = await axiosJWT.get(
-        `http://localhost:4000/job-seekers/${id}`,
-        {
-          headers: {
-            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-          },
-        }
-      );
-      setUser(res.data);
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "Server Error.",
-        showConfirmButton: false,
-        timer: 5000,
-      });
-    }
-  };
-
-  const updateProfileDetails = async (id) => {
-    try {
-      const res = await axiosJWT.patch(
-        `http://localhost:4000/job-seekers/${id}`,
-        user,
-        {
-          headers: {
-            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-          },
-        }
-      );
-      // console.log("res.data ", res.data);
-
-      sessionStorage.setItem("userName", res.data.name);
-      setUser(res.data);
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "Server Error.",
-        showConfirmButton: false,
-        timer: 5000,
-      });
-    }
-  };
-
   useEffect(() => {
-    getCurrentUser(sessionStorage.getItem("userId"));
+    getProfileDetails(
+      axiosJWT,
+      "http://localhost:4000/job-seekers",
+      userId,
+      setUser
+    );
   }, []);
 
   return (
@@ -189,7 +149,15 @@ function UserProfile() {
                 <button
                   class="btn btn-success"
                   type="button"
-                  onClick={() => updateProfileDetails(user.id)}
+                  onClick={() =>
+                    updateProfileDetails(
+                      axiosJWT,
+                      "job-seekers",
+                      user.id,
+                      user,
+                      setUser
+                    )
+                  }
                 >
                   Save changes
                 </button>

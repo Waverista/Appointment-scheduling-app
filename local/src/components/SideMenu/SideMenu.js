@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { IoLogOut } from "react-icons/io5";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import logo from "../../assets/logo/1.png";
+import { logout } from "../../utils/EndpointUtils";
 import { ProviderContext } from "../Provider/Provider";
 import "./SideMenu.css";
 import {
@@ -43,34 +43,6 @@ function SideMenu({ mainBg }) {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-  };
-
-  const logout = () => {
-    try {
-      sessionStorage.clear();
-      setToken(null);
-      setUser({
-        accessToken: "",
-        refreshToken: "",
-      });
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        text: "Logout successful. Have a great day!",
-        showConfirmButton: false,
-        timer: 5000,
-      });
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "Oops! Something went wrong during the logout process. Please try again.",
-        showConfirmButton: false,
-        timer: 5000,
-      });
-    }
   };
 
   return (
@@ -132,7 +104,7 @@ function SideMenu({ mainBg }) {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               style={{ backgroundColor: isHovered ? "#31d186" : "#198754" }}
-              onClick={logout}
+              onClick={() => logout(setToken, setUser, navigate)}
             >
               <IoLogOut
                 className="logout-icon-css"

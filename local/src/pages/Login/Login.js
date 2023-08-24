@@ -1,10 +1,9 @@
-import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import logo from "../../assets/logo/1.png";
 
 import { ProviderContext } from "../../components/Provider/Provider";
+import { handleSignIn } from "../../utils/EndpointUtils";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,78 +13,6 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignIn = async (e) => {
-    e.preventDefault();
-
-    try {
-      let res;
-      if (userType === "admin") {
-        console.log("admin");
-
-        res = await axios.post(
-          "http://localhost:4000/authentication/admin/login",
-          {
-            email: email,
-            password: password,
-          }
-        );
-      } else if (userType === "consultant") {
-        console.log("consultant");
-
-        res = await axios.post(
-          "http://localhost:4000/authentication/consultant/login",
-          {
-            email,
-            password,
-          }
-        );
-      } else {
-        console.log("job seeker");
-
-        res = await axios.post(
-          "http://localhost:4000/authentication/js/login",
-          {
-            email,
-            password,
-          }
-        );
-      }
-
-      const { id, name, role, accessToken, refreshToken } = res.data;
-      setUser({
-        userType: userType,
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      });
-
-      sessionStorage.setItem("userId", id);
-      sessionStorage.setItem("userName", name);
-      sessionStorage.setItem("accessToken", accessToken);
-      sessionStorage.setItem("refreshToken", refreshToken);
-      sessionStorage.setItem("userType", userType);
-      sessionStorage.setItem("userEmail", email);
-      setToken(sessionStorage.getItem("accessToken"));
-
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        text: "Success! You are now logged in.",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-
-      navigate("/home");
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "Account not found. Please verify your credentials and try again.",
-        showConfirmButton: false,
-        timer: 5000,
-      });
-    }
-  };
   return (
     <div className="login template d-flex justify-content-center align-items-center 100-w vh-100 bg-success">
       <img
@@ -103,7 +30,19 @@ function Login() {
         alt="logo"
       />
       <div className="50-w p-5 rounded bg-white" style={{ zIndex: "10" }}>
-        <form onSubmit={handleSignIn}>
+        <form
+          onSubmit={(e) =>
+            handleSignIn(
+              e,
+              userType,
+              email,
+              password,
+              setUser,
+              setToken,
+              navigate
+            )
+          }
+        >
           <div className="text-center">
             <img
               src={logo}
