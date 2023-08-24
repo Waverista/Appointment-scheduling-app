@@ -34,9 +34,18 @@ export default function Consultant() {
   const { axiosJWT, consultantsLst, setConsultantsLst } =
     useContext(ProviderContext);
 
+  const [jobTypeParam, setJobTypeParam] = useState("");
+  const [countryParam, setCountryParam] = useState("");
+
   useEffect(() => {
-    getAllUsers(axiosJWT, "consultants", setConsultantsLst);
-  }, []);
+    getAllUsers(
+      axiosJWT,
+      "consultants",
+      setConsultantsLst,
+      jobTypeParam,
+      countryParam
+    );
+  }, [jobTypeParam, countryParam]);
 
   const [userType] = useState(sessionStorage.getItem("userType"));
 
@@ -53,26 +62,99 @@ export default function Consultant() {
         Consultants
       </h1>
       <hr className="mt-0 mb-4" />
-      <div>
-        <select
-          className="dropdown"
-          style={{
-            padding: "8px 12px",
-            color: "#198754",
-            fontWeight: "600",
-            backgroundColor: "white",
-            border: "1px solid #198754",
-            cursor: "pointer",
-            borderRadius: "7px",
-          }}
-        >
-          <option disabled selected>
-            Select job type
-          </option>
-          <option value="fruit">IT</option>
-          <option value="vegetable">Networking</option>
-          <option value="meat">Cyber security</option>
-        </select>
+      <div className="d-flex">
+        <div className="d-flex">
+          <div>
+            <h5
+              style={{ marginTop: "7px", marginRight: "9px", color: "black" }}
+            >
+              Job Type:
+            </h5>
+          </div>
+          <div>
+            <select
+              className="dropdown"
+              style={{
+                padding: "8px 12px",
+                color: "#198754",
+                fontWeight: "600",
+                backgroundColor: "white",
+                border: "1px solid #198754",
+                cursor: "pointer",
+                borderRadius: "7px",
+              }}
+              onChange={(e) => setJobTypeParam(e.target.value)}
+            >
+              <option value="" selected>
+                All
+              </option>
+              <option value="Information Technology (IT)">
+                Information Technology (IT)
+              </option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Business and Finance">Business and Finance</option>
+              <option value="Education">Education</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Arts and Media">Arts and Media</option>
+              <option value="Retail and Sales">Retail and Sales</option>
+              <option value="Manufacturing">Manufacturing</option>
+              <option value="Legal">Legal</option>
+              <option value="Construction and Trades">
+                Construction and Trades
+              </option>
+              <option value="Hospitality and Tourism">
+                Hospitality and Tourism
+              </option>
+              <option value="Science and Research">Science and Research</option>
+            </select>
+          </div>
+        </div>
+        &nbsp; &nbsp; &nbsp;
+        <div className="d-flex">
+          <div>
+            <h5
+              style={{ marginTop: "7px", marginRight: "9px", color: "black" }}
+            >
+              Country:
+            </h5>
+          </div>
+          <div>
+            <select
+              className="dropdown"
+              style={{
+                padding: "8px 12px",
+                color: "#198754",
+                fontWeight: "600",
+                backgroundColor: "white",
+                border: "1px solid #198754",
+                cursor: "pointer",
+                borderRadius: "7px",
+              }}
+              onChange={(e) => setCountryParam(e.target.value)}
+            >
+              <option value="" selected>
+                All
+              </option>
+              <option value="Sri Lanka">Sri Lanka</option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Canada">Canada</option>
+              <option value="Australia">Australia</option>
+              <option value="India">India</option>
+              <option value="China">China</option>
+              <option value="Japan">Japan</option>
+              <option value="Brazil">Brazil</option>
+              <option value="Germany">Germany</option>
+              <option value="Russia">Russia</option>
+              <option value="France">France</option>
+              <option value="Sweden">Sweden</option>
+              <option value="Italy">Italy</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Spain">Spain</option>
+              <option value="Saudi Arabia">Saudi Arabia</option>
+            </select>
+          </div>
+        </div>
       </div>
       <br />
       <ConsultantList
@@ -202,6 +284,19 @@ export default function Consultant() {
                               />
                             </div>
                           </div>
+                          <div className="row gx-3 mb-3">
+                            <div className="col-md-6">
+                              <label className="small mb-1" for="mobile">
+                                Job Type
+                              </label>
+                              <input
+                                className="form-control"
+                                id="mobile"
+                                value={selectedConsultant.job_type}
+                                disabled
+                              />
+                            </div>
+                          </div>
                           <div className="form-group">
                             <label
                               className="small mb-1"
@@ -286,7 +381,7 @@ export default function Consultant() {
                 There are no available times.
               </div>
             )}
-            <div style={{ marginTop: 30 }}>
+            <div style={{ marginTop: 30, marginBottom: 50 }}>
               <h6>If You want send a email to the consultant</h6>
               <ContactForm consultant={selectedConsultant} />
             </div>

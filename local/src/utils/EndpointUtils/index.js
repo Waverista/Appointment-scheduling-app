@@ -354,9 +354,35 @@ export const addAvailableTime = async (axiosJWT, startTime, endTime) => {
   }
 };
 
-export const getAllUsers = async (axiosJWT, userRole, setUsersLst) => {
+export const getAllUsers = async (
+  axiosJWT,
+  userRole,
+  setUsersLst,
+  jobTypeParam,
+  countryParam
+) => {
   try {
-    const res = await axiosJWT.get(`http://localhost:4000/${userRole}`, {
+    let endP;
+
+    if (jobTypeParam === "" && countryParam === "") {
+      endP = `http://localhost:4000/${userRole}`;
+    } else {
+      const queryParams = [];
+
+      if (jobTypeParam !== "") {
+        queryParams.push(`job_type=${jobTypeParam}`);
+      }
+
+      if (countryParam !== "") {
+        queryParams.push(`country=${countryParam}`);
+      }
+
+      const queryString = queryParams.join("&");
+      endP = `http://localhost:4000/${userRole}${
+        queryString ? `?${queryString}` : ""
+      }`;
+    }
+    const res = await axiosJWT.get(endP, {
       headers: {
         authorization: "Bearer " + sessionStorage.getItem("accessToken"),
       },

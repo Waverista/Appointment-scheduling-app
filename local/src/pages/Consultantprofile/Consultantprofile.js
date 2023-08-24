@@ -227,9 +227,28 @@ function ConsultantProfile() {
                         }))
                       }
                     >
-                      <option value={"IT"}>IT</option>
-                      <option value={"Networking"}>Networking</option>
-                      <option value={"Human resource"}>Human resource</option>
+                      <option value="Information Technology (IT)">
+                        Information Technology (IT)
+                      </option>
+                      <option value="Healthcare">Healthcare</option>
+                      <option value="Business and Finance">
+                        Business and Finance
+                      </option>
+                      <option value="Education">Education</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Arts and Media">Arts and Media</option>
+                      <option value="Retail and Sales">Retail and Sales</option>
+                      <option value="Manufacturing">Manufacturing</option>
+                      <option value="Legal">Legal</option>
+                      <option value="Construction and Trades">
+                        Construction and Trades
+                      </option>
+                      <option value="Hospitality and Tourism">
+                        Hospitality and Tourism
+                      </option>
+                      <option value="Science and Research">
+                        Science and Research
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -238,9 +257,10 @@ function ConsultantProfile() {
                     <label class="small mb-1" for="country">
                       Country
                     </label>
-                    <input
-                      class="form-control"
+                    <select
+                      class="form-select"
                       id="country"
+                      aria-label="Dropdown"
                       value={user.country}
                       onChange={(e) =>
                         setUser((prevUser) => ({
@@ -248,7 +268,25 @@ function ConsultantProfile() {
                           country: e.target.value,
                         }))
                       }
-                    />
+                    >
+                      <option value="Sri Lanka">Sri Lanka</option>
+                      <option value="United States">United States</option>
+                      <option value="United Kingdom">United Kingdom</option>
+                      <option value="Canada">Canada</option>
+                      <option value="Australia">Australia</option>
+                      <option value="India">India</option>
+                      <option value="China">China</option>
+                      <option value="Japan">Japan</option>
+                      <option value="Brazil">Brazil</option>
+                      <option value="Germany">Germany</option>
+                      <option value="Russia">Russia</option>
+                      <option value="France">France</option>
+                      <option value="Sweden">Sweden</option>
+                      <option value="Italy">Italy</option>
+                      <option value="Argentina">Argentina</option>
+                      <option value="Spain">Spain</option>
+                      <option value="Saudi Arabia">Saudi Arabia</option>
+                    </select>
                   </div>
                 </div>
                 <button
