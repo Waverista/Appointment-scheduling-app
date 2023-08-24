@@ -219,13 +219,17 @@ function ConsultantProfile() {
                       class="form-select"
                       id="jType"
                       aria-label="Dropdown"
+                      value={user.job_type} // Set the selected value from state
+                      onChange={(e) =>
+                        setUser((prevUser) => ({
+                          ...prevUser,
+                          job_type: e.target.value, // Update job_type in state
+                        }))
+                      }
                     >
-                      <option value={0} selected>
-                        {user.job_type}
-                      </option>
-                      <option value={0}>IT</option>
-                      <option value={0}>Networking</option>
-                      <option value={0}>Human resource</option>
+                      <option value={"IT"}>IT</option>
+                      <option value={"Networking"}>Networking</option>
+                      <option value={"Human resource"}>Human resource</option>
                     </select>
                   </div>
                 </div>
