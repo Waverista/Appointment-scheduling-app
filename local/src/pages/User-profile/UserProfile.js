@@ -128,11 +128,12 @@ function UserProfile() {
                     <input
                       class="form-control"
                       id="age"
+                      type="number"
                       value={user.age}
                       onChange={(e) =>
                         setUser((prevUser) => ({
                           ...prevUser,
-                          age: e.target.value,
+                          age: parseInt(e.target.value),
                         }))
                       }
                     />

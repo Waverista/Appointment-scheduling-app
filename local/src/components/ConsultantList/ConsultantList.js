@@ -27,7 +27,7 @@ const ConsultantList = ({ consultantsLst, openModal, userType }) => {
                     image="https://www.seekpng.com/png/detail/131-1314988_icon-consulting-anonymous-proxy-icon.png"
                     alt="IT consultant"
                   />
-                  <CardContent>
+                  <CardContent style={{ height: 140 }}>
                     <Typography
                       gutterBottom
                       variant="h5"
@@ -57,7 +57,7 @@ const ConsultantList = ({ consultantsLst, openModal, userType }) => {
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActions>
+                <CardActions style={{ position: "relative", height: 40 }}>
                   {userType === "admin" && (
                     <Button
                       size="small"
@@ -65,6 +65,9 @@ const ConsultantList = ({ consultantsLst, openModal, userType }) => {
                         color: "white",
                         backgroundColor: "#DC3545",
                         textTransform: "capitalize",
+                        position: "absolute",
+                        right: 15,
+                        bottom: 8,
                       }}
                       onClick={() =>
                         deleteUser(
