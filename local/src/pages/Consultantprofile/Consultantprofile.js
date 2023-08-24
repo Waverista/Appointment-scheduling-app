@@ -1,13 +1,18 @@
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import MuiDateTimePicker from "../../components/MuiDateTimePicker";
 import { ProviderContext } from "../../components/Provider/Provider";
-import "./Consultantprofile.css";
+import {
+  addAvailableTime,
+  getProfileDetails,
+  updateProfileDetails,
+} from "../../utils/EndpointUtils";
+import "./ConsultantProfile.css";
 
-function Consultantprofile() {
+function ConsultantProfile() {
   const { axiosJWT } = useContext(ProviderContext);
 
+  const userId = sessionStorage.getItem("userId");
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -19,63 +24,15 @@ function Consultantprofile() {
     job_type: "",
   });
 
-  const updateProfileDetails = async (id) => {
-    try {
-      const res = await axiosJWT.patch(
-        `http://localhost:4000/consultants/${id}`,
-        user,
-        {
-          headers: {
-            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-          },
-        }
-      );
-      // console.log("res.data ", res.data);
-
-      sessionStorage.setItem("userName", res.data.name);
-      setUser(res.data);
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "Server Error.",
-        showConfirmButton: false,
-        timer: 5000,
-      });
-    }
-  };
-
-  const getProfileDetails = async (id) => {
-    try {
-      const res = await axiosJWT.get(
-        `http://localhost:4000/consultants/${id}`,
-        {
-          headers: {
-            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-          },
-        }
-      );
-      // console.log("res.data ", res.data);
-
-      setUser(res.data);
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "Server Error.",
-        showConfirmButton: false,
-        timer: 5000,
-      });
-    }
-  };
-
   useEffect(() => {
-    getProfileDetails(sessionStorage.getItem("userId"));
+    getProfileDetails(
+      axiosJWT,
+      "http://localhost:4000/consultants",
+      userId,
+      setUser
+    );
   }, []);
 
-  // console.log("user ", user);
   const [selectedStartDate, setSelectedStartDate] = useState(dayjs());
   const [selectedStartTime, setSelectedStartTime] = useState(dayjs());
   const [selectedEndDate, setSelectedEndDate] = useState(dayjs());
@@ -84,21 +41,21 @@ function Consultantprofile() {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
 
-  // Handle the date change
+  // Handle the start date change
   const handleStartDateChange = (date) => {
     setSelectedStartDate(date);
   };
 
-  // Handle the time change
+  // Handle the start time change
   const handleStartTimeChange = (time) => {
     setSelectedStartTime(time);
   };
-  // Handle the date change
+  // Handle the end date change
   const handleEndDateChange = (date) => {
     setSelectedEndDate(date);
   };
 
-  // Handle the time change
+  // Handle the end time change
   const handleEndTimeChange = (time) => {
     setSelectedEndTime(time);
   };
@@ -115,37 +72,6 @@ function Consultantprofile() {
       ).format("HH:mm")}:00`
     );
   }, [selectedEndTime, selectedEndDate, selectedStartTime, selectedStartDate]);
-
-  // console.log("start_time ", startTime);
-  // console.log("end_time ", endTime);
-
-  const addAvailableTime = async () => {
-    try {
-      const res = await axiosJWT.post(
-        `http://localhost:4000/available-times/create`,
-        {
-          start_time: startTime,
-          end_time: endTime,
-        },
-        {
-          headers: {
-            authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-          },
-        }
-      );
-
-      console.log("res ", res.data);
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "Server Error.",
-        showConfirmButton: false,
-        timer: 5000,
-      });
-    }
-  };
 
   return (
     <div style={{ marginRight: 42, marginTop: 0 }}>
@@ -182,7 +108,6 @@ function Consultantprofile() {
                 id="customFile"
                 accept="image/png, image/jpeg"
               />
-              {/* <button size="small" color="success" class="btn btn-success" type="button">Upload image</button> */}
             </div>
           </div>
         </div>
@@ -325,7 +250,15 @@ function Consultantprofile() {
                 <button
                   class="btn btn-success"
                   type="button"
-                  onClick={() => updateProfileDetails(user.id)}
+                  onClick={() =>
+                    updateProfileDetails(
+                      axiosJWT,
+                      "consultants",
+                      user.id,
+                      user,
+                      setUser
+                    )
+                  }
                 >
                   Save changes
                 </button>
@@ -384,7 +317,7 @@ function Consultantprofile() {
                 <button
                   class="btn btn-success"
                   type="button"
-                  onClick={addAvailableTime}
+                  onClick={() => addAvailableTime(axiosJWT, startTime, endTime)}
                 >
                   Add time
                 </button>
@@ -435,4 +368,4 @@ function Consultantprofile() {
   );
 }
 
-export default Consultantprofile;
+export default ConsultantProfile;

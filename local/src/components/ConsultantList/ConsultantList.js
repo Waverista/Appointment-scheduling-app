@@ -3,15 +3,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useContext } from "react";
 import { AiFillDelete } from "react-icons/ai";
-// import "./Consultant.css";
+import { deleteUser } from "../../utils/EndpointUtils";
+import { ProviderContext } from "../Provider/Provider";
 
-const ConsultantList = ({
-  consultantsLst,
-  openModal,
-  userType,
-  deleteUser,
-}) => {
+const ConsultantList = ({ consultantsLst, openModal, userType }) => {
+  const { axiosJWT } = useContext(ProviderContext);
   return (
     <>
       <Grid container spacing={2}>
@@ -68,7 +66,14 @@ const ConsultantList = ({
                         backgroundColor: "#DC3545",
                         textTransform: "capitalize",
                       }}
-                      onClick={() => deleteUser(consultant.id, consultant.name)}
+                      onClick={() =>
+                        deleteUser(
+                          axiosJWT,
+                          "consultants",
+                          consultant.id,
+                          consultant.name
+                        )
+                      }
                     >
                       <AiFillDelete
                         style={{ marginBottom: "4px", marginRight: "4px" }}

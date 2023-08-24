@@ -1,6 +1,6 @@
 import SideMenu from "../../components/SideMenu/SideMenu";
 
-const SideMenuLayout = ({ children, className, footer, style }) => {
+const SideMenuLayout = ({ children, className, style }) => {
   return (
     <>
       <SideMenu />
@@ -9,7 +9,6 @@ const SideMenuLayout = ({ children, className, footer, style }) => {
         style={style ? style : { paddingLeft: "144px", paddingTop: "55px" }}
       >
         {children}
-        {footer && <div className="">{/* <Footer /> */}</div>}
       </div>
     </>
   );

@@ -4,7 +4,6 @@ import { DesktopTimePicker } from "@mui/x-date-pickers/DesktopTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
-// import "./DateTimePicker.css";
 
 export default function MuiDateTimePicker({
   label,

@@ -1,7 +1,6 @@
 import { AiFillHome } from "react-icons/ai";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { FaUserTie } from "react-icons/fa";
-// import { RiProfileFill } from "react-icons/im";
 import { MdPeople } from "react-icons/md";
 import { RiProfileFill } from "react-icons/ri";
 

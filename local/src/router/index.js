@@ -1,15 +1,15 @@
 import { useRoutes } from "react-router-dom";
 import SideMenuLayout from "../Layouts/SideMenuLayout/SideMenuLayout";
 import Appointments from "../pages/Appointments/Appointments";
+import ConsultantProfile from "../pages/ConsultantProfile/ConsultantProfile";
 import Consultant from "../pages/Consultants/Consultant";
 import Home from "../pages/Home/Home";
+import Jobseekerlist from "../pages/Jobseekerlist/Jobseekerlist";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import UserProfile from "../pages/User-profile/UserProfile";
 import PrivateRouteInverse from "../utils/PrivateRouteInverse";
 import PrivateRoutes from "../utils/PrivateRoutes";
-import Consultantprofile from "../pages/Consultantprofile/Consultantprofile";
-import Jobseekerlist from "../pages/Jobseekerlist/Jobseekerlist";
 
 function Router() {
   const routes = [
@@ -49,10 +49,10 @@ function Router() {
           ),
         },
         {
-          path: "/Consultantprofile",
+          path: "/ConsultantProfile",
           element: (
             <SideMenuLayout>
-              <Consultantprofile/>
+              <ConsultantProfile />
             </SideMenuLayout>
           ),
         },
@@ -60,7 +60,7 @@ function Router() {
           path: "/Jobseekerlist",
           element: (
             <SideMenuLayout>
-              <Jobseekerlist/>
+              <Jobseekerlist />
             </SideMenuLayout>
           ),
         },
