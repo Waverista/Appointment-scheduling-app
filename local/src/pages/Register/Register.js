@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo/1.png";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { handleSignUp } from "../../utils/EndpointUtils";
+import {
+  handleLoginRegisterEmailChange,
+  handleLoginRegisterPasswordChange,
+} from "../../utils/Validation";
 
 function Register() {
   const navigate = useNavigate();
@@ -10,6 +15,9 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   return (
     <div className="register template d-flex justify-content-center align-items-center 100-w vh-100 bg-success">
@@ -86,8 +94,11 @@ function Register() {
               type="email"
               placeholder="Enter email"
               className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                handleLoginRegisterEmailChange(e, setEmail, setEmailError)
+              }
             />
+            {emailError && <ErrorMessage errMessage={emailError} />}
           </div>
           <div className="mb-2">
             <label htmlFor="password">
@@ -97,8 +108,15 @@ function Register() {
               type="password"
               placeholder="Enter password"
               className="form-control"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                handleLoginRegisterPasswordChange(
+                  e,
+                  setPassword,
+                  setPasswordError
+                )
+              }
             />
+            {passwordError && <ErrorMessage errMessage={passwordError} />}
           </div>
           <div className="d-grid">
             <button

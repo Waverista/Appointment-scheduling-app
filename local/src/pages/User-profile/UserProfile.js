@@ -1,9 +1,16 @@
+import { Avatar } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { ProviderContext } from "../../components/Provider/Provider";
 import {
   getProfileDetails,
   updateProfileDetails,
 } from "../../utils/EndpointUtils";
+import {
+  handleAgeChange,
+  handleEmailChange,
+  handleMobileChange,
+} from "../../utils/Validation";
 import "./UserProfile.css";
 
 function UserProfile() {
@@ -27,6 +34,10 @@ function UserProfile() {
     );
   }, []);
 
+  const [errorAge, setErrorAge] = useState("");
+  const [errorMobile, setErrorMobile] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+
   return (
     <div style={{ marginRight: 42, marginTop: 0 }}>
       <h1
@@ -45,17 +56,12 @@ function UserProfile() {
           <div class="card mb-4 mb-xl-0">
             <div class="card-header">Profile Picture</div>
             <div class="card-body text-center">
-              <img
-                class="img-account-profile rounded-circle mb-2"
-                src="http://bootdey.com/img/Content/avatar/avatar1.png"
-                alt=""
+              <Avatar
+                alt={user.name}
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTsu0b1R79ZeinW7a0NNTC_unCuc1-VR4_fW4qOVBQWcDoRgw4pmZnTzysiyB0zGh9Ufo&usqp=CAU"
+                style={{ width: "150px", height: "150px", margin: "auto" }}
               />
-              <div class="small font-italic text-muted mb-4">
-                JPG or PNG no larger than 5 MB
-              </div>
-              <button class="btn btn-success" type="button">
-                Upload new image
-              </button>
+              <h4 style={{ marginTop: 15 }}>{user.name}</h4>
             </div>
           </div>
         </div>
@@ -67,7 +73,7 @@ function UserProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="inputFirstName">
-                      Name
+                      Name<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
@@ -86,7 +92,7 @@ function UserProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="inputFirstName">
-                      Email
+                      Email<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
@@ -94,59 +100,47 @@ function UserProfile() {
                       type="text"
                       value={user.email}
                       onChange={(e) =>
-                        setUser((prevUser) => ({
-                          ...prevUser,
-                          email: e.target.value,
-                        }))
+                        handleEmailChange(e, setUser, setErrorEmail)
                       }
                     />
+                    {errorEmail && <ErrorMessage errMessage={errorEmail} />}
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="mobile">
-                      Phone number
+                      Phone number<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
                       id="mobile"
                       value={user.mobile}
+                      required
                       onChange={(e) =>
-                        setUser((prevUser) => ({
-                          ...prevUser,
-                          mobile: e.target.value,
-                        }))
+                        handleMobileChange(e, setUser, setErrorMobile)
                       }
                     />
+                    {errorMobile && <ErrorMessage errMessage={errorMobile} />}
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="age">
-                      Age
+                      Age<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
                       id="age"
+                      required
+                      max={120}
+                      min={1}
                       type="number"
                       value={user.age}
-                      onChange={(e) =>
-                        setUser((prevUser) => ({
-                          ...prevUser,
-                          age: parseInt(e.target.value),
-                        }))
-                      }
+                      onChange={(e) => handleAgeChange(e, setUser, setErrorAge)}
                     />
+                    {errorAge && <ErrorMessage errMessage={errorAge} />}
                   </div>
                 </div>
-                {/* <div class="row gx-3 mb-3">
-                  <div class="col-md-6">
-                    <label class="small mb-1" for="dob">
-                      Date of birth
-                    </label>
-                    <input class="form-control" id="dob" type="date" />
-                  </div>
-                </div> */}
                 <button
                   class="btn btn-success"
                   type="button"

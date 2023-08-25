@@ -1,5 +1,7 @@
+import { Avatar } from "@mui/material";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import MuiDateTimePicker from "../../components/MuiDateTimePicker";
 import { ProviderContext } from "../../components/Provider/Provider";
 import {
@@ -7,6 +9,7 @@ import {
   getProfileDetails,
   updateProfileDetails,
 } from "../../utils/EndpointUtils";
+import { handleEmailChange, handleMobileChange } from "../../utils/Validation";
 import "./ConsultantProfile.css";
 
 function ConsultantProfile() {
@@ -73,6 +76,10 @@ function ConsultantProfile() {
     );
   }, [selectedEndTime, selectedEndDate, selectedStartTime, selectedStartDate]);
 
+  const [errorAge, setErrorAge] = useState("");
+  const [errorMobile, setErrorMobile] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+
   return (
     <div style={{ marginRight: 42, marginTop: 0 }}>
       <h1
@@ -91,12 +98,19 @@ function ConsultantProfile() {
           <div class="card mb-4 mb-xl-0">
             <div class="card-header">Profile Picture</div>
             <div class="card-body text-center">
-              <img
+              <Avatar
+                alt={user.name}
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTsu0b1R79ZeinW7a0NNTC_unCuc1-VR4_fW4qOVBQWcDoRgw4pmZnTzysiyB0zGh9Ufo&usqp=CAU"
+                style={{ width: "150px", height: "150px", margin: "auto" }}
+              />
+              <h4 style={{ marginTop: 15 }}>{user.name}</h4>
+              {/* <img
                 class="img-account-profile rounded-circle mb-2"
                 src="http://bootdey.com/img/Content/avatar/avatar1.png"
                 alt=""
-              />
-              <div class="small font-italic text-muted mb-4">
+              /> */}
+
+              {/* <div class="small font-italic text-muted mb-4">
                 JPG or PNG no larger than 5 MB
               </div>
               <label class="form-label" for="customFile">
@@ -107,7 +121,7 @@ function ConsultantProfile() {
                 class="form-control"
                 id="customFile"
                 accept="image/png, image/jpeg"
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -119,7 +133,7 @@ function ConsultantProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="inputFirstName">
-                      Name
+                      Name<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
@@ -138,7 +152,7 @@ function ConsultantProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="inputFirstName">
-                      Email
+                      Email<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
@@ -146,12 +160,10 @@ function ConsultantProfile() {
                       type="text"
                       value={user.email}
                       onChange={(e) =>
-                        setUser((prevUser) => ({
-                          ...prevUser,
-                          email: e.target.value,
-                        }))
+                        handleEmailChange(e, setUser, setErrorEmail)
                       }
                     />
+                    {errorEmail && <ErrorMessage errMessage={errorEmail} />}
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
@@ -195,28 +207,28 @@ function ConsultantProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="mobile">
-                      Phone number
+                      Phone number<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
                       id="mobile"
+                      required
                       value={user.mobile}
                       onChange={(e) =>
-                        setUser((prevUser) => ({
-                          ...prevUser,
-                          mobile: e.target.value,
-                        }))
+                        handleMobileChange(e, setUser, setErrorMobile)
                       }
                     />
+                    {errorMobile && <ErrorMessage errMessage={errorMobile} />}
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="category">
-                      Job type
+                      Job type<span className="text-danger">*</span>
                     </label>
                     <select
                       class="form-select"
+                      required
                       id="jType"
                       aria-label="Dropdown"
                       value={user.job_type} // Set the selected value from state
@@ -255,10 +267,11 @@ function ConsultantProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="country">
-                      Country
+                      Country<span className="text-danger">*</span>
                     </label>
                     <select
                       class="form-select"
+                      required
                       id="country"
                       aria-label="Dropdown"
                       value={user.country}

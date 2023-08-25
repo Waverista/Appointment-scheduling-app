@@ -37,6 +37,8 @@ export default function Consultant() {
   const [jobTypeParam, setJobTypeParam] = useState("");
   const [countryParam, setCountryParam] = useState("");
 
+  const [consultantsLstIsEmpty, setConsultantsLstIsEmpty] = useState("");
+
   useEffect(() => {
     getAllUsers(
       axiosJWT,
@@ -46,6 +48,10 @@ export default function Consultant() {
       countryParam
     );
   }, [jobTypeParam, countryParam]);
+
+  useEffect(() => {
+    setConsultantsLstIsEmpty(consultantsLst.length === 0);
+  });
 
   const [userType] = useState(sessionStorage.getItem("userType"));
 
@@ -157,12 +163,30 @@ export default function Consultant() {
         </div>
       </div>
       <br />
-      <ConsultantList
-        consultantsLst={consultantsLst}
-        openModal={openModal}
-        userType={userType}
-        // deleteUser={deleteUser}
-      />
+      {!consultantsLstIsEmpty ? (
+        <ConsultantList
+          consultantsLst={consultantsLst}
+          openModal={openModal}
+          userType={userType}
+          // deleteUser={deleteUser}
+        />
+      ) : (
+        <h1
+          className="disabled"
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            padding: "2px",
+            backgroundColor: "transparent",
+            opacity: 0.2,
+            color: "green",
+          }}
+        >
+          No consultants are available at the moment.
+        </h1>
+      )}
       {selectedConsultant && (
         <Modal
           isOpen={isModalOpen}
