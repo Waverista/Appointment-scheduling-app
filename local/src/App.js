@@ -38,8 +38,8 @@ function App() {
           </div>
           <div>
             <Avatar
-              alt="Remy Sharp"
-              src="https://mui.com/static/images/avatar/2.jpg"
+              alt={sessionStorage.getItem("userName")}
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTsu0b1R79ZeinW7a0NNTC_unCuc1-VR4_fW4qOVBQWcDoRgw4pmZnTzysiyB0zGh9Ufo&usqp=CAU"
               style={{ width: "70px", height: "70px" }}
             />
           </div>

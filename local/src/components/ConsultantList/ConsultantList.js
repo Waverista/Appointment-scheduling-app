@@ -57,7 +57,7 @@ const ConsultantList = ({ consultantsLst, openModal, userType }) => {
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActions style={{ position: "relative", height: 40 }}>
+                <CardActions style={{ position: "relative", height: 55 }}>
                   {userType === "admin" && (
                     <Button
                       size="small"
