@@ -2,8 +2,13 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo/1.png";
 
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import { ProviderContext } from "../../components/Provider/Provider";
 import { handleSignIn } from "../../utils/EndpointUtils";
+import {
+  handleLoginRegisterEmailChange,
+  handleLoginRegisterPasswordChange,
+} from "../../utils/Validation";
 
 function Login() {
   const navigate = useNavigate();
@@ -12,6 +17,9 @@ function Login() {
   const [userType, setUserType] = useState("admin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   return (
     <div className="login template d-flex justify-content-center align-items-center 100-w vh-100 bg-success">
@@ -85,8 +93,11 @@ function Login() {
               type="email"
               placeholder="Enter Email"
               className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                handleLoginRegisterEmailChange(e, setEmail, setEmailError)
+              }
             />
+            {emailError && <ErrorMessage errMessage={emailError} />}
           </div>
           <div className="mb-3">
             <label htmlFor="password">
@@ -96,8 +107,15 @@ function Login() {
               type="password"
               placeholder="Enter password"
               className="form-control"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                handleLoginRegisterPasswordChange(
+                  e,
+                  setPassword,
+                  setPasswordError
+                )
+              }
             />
+            {passwordError && <ErrorMessage errMessage={passwordError} />}
           </div>
           <div className="mb-2">
             <input
@@ -131,3 +149,6 @@ function Login() {
 }
 
 export default Login;
+// function ErrorMessage(passwordError) {
+//   return <p className="text-danger">{passwordError}</p>;
+// }
