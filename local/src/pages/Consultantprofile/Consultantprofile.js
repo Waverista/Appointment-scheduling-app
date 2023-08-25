@@ -1,5 +1,7 @@
+import { Avatar } from "@mui/material";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import MuiDateTimePicker from "../../components/MuiDateTimePicker";
 import { ProviderContext } from "../../components/Provider/Provider";
 import {
@@ -7,6 +9,7 @@ import {
   getProfileDetails,
   updateProfileDetails,
 } from "../../utils/EndpointUtils";
+import { handleEmailChange, handleMobileChange } from "../../utils/Validation";
 import "./ConsultantProfile.css";
 
 function ConsultantProfile() {
@@ -73,6 +76,10 @@ function ConsultantProfile() {
     );
   }, [selectedEndTime, selectedEndDate, selectedStartTime, selectedStartDate]);
 
+  const [errorAge, setErrorAge] = useState("");
+  const [errorMobile, setErrorMobile] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+
   return (
     <div style={{ marginRight: 42, marginTop: 0 }}>
       <h1
@@ -91,12 +98,19 @@ function ConsultantProfile() {
           <div class="card mb-4 mb-xl-0">
             <div class="card-header">Profile Picture</div>
             <div class="card-body text-center">
-              <img
+              <Avatar
+                alt={user.name}
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTsu0b1R79ZeinW7a0NNTC_unCuc1-VR4_fW4qOVBQWcDoRgw4pmZnTzysiyB0zGh9Ufo&usqp=CAU"
+                style={{ width: "150px", height: "150px", margin: "auto" }}
+              />
+              <h4 style={{ marginTop: 15 }}>{user.name}</h4>
+              {/* <img
                 class="img-account-profile rounded-circle mb-2"
                 src="http://bootdey.com/img/Content/avatar/avatar1.png"
                 alt=""
-              />
-              <div class="small font-italic text-muted mb-4">
+              /> */}
+
+              {/* <div class="small font-italic text-muted mb-4">
                 JPG or PNG no larger than 5 MB
               </div>
               <label class="form-label" for="customFile">
@@ -107,7 +121,7 @@ function ConsultantProfile() {
                 class="form-control"
                 id="customFile"
                 accept="image/png, image/jpeg"
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -119,7 +133,7 @@ function ConsultantProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="inputFirstName">
-                      Name
+                      Name<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
@@ -138,7 +152,7 @@ function ConsultantProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="inputFirstName">
-                      Email
+                      Email<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
@@ -146,12 +160,10 @@ function ConsultantProfile() {
                       type="text"
                       value={user.email}
                       onChange={(e) =>
-                        setUser((prevUser) => ({
-                          ...prevUser,
-                          email: e.target.value,
-                        }))
+                        handleEmailChange(e, setUser, setErrorEmail)
                       }
                     />
+                    {errorEmail && <ErrorMessage errMessage={errorEmail} />}
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
@@ -195,28 +207,28 @@ function ConsultantProfile() {
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="mobile">
-                      Phone number
+                      Phone number<span className="text-danger">*</span>
                     </label>
                     <input
                       class="form-control"
                       id="mobile"
+                      required
                       value={user.mobile}
                       onChange={(e) =>
-                        setUser((prevUser) => ({
-                          ...prevUser,
-                          mobile: e.target.value,
-                        }))
+                        handleMobileChange(e, setUser, setErrorMobile)
                       }
                     />
+                    {errorMobile && <ErrorMessage errMessage={errorMobile} />}
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="category">
-                      Job type
+                      Job type<span className="text-danger">*</span>
                     </label>
                     <select
                       class="form-select"
+                      required
                       id="jType"
                       aria-label="Dropdown"
                       value={user.job_type} // Set the selected value from state
@@ -227,20 +239,41 @@ function ConsultantProfile() {
                         }))
                       }
                     >
-                      <option value={"IT"}>IT</option>
-                      <option value={"Networking"}>Networking</option>
-                      <option value={"Human resource"}>Human resource</option>
+                      <option value="Information Technology (IT)">
+                        Information Technology (IT)
+                      </option>
+                      <option value="Healthcare">Healthcare</option>
+                      <option value="Business and Finance">
+                        Business and Finance
+                      </option>
+                      <option value="Education">Education</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Arts and Media">Arts and Media</option>
+                      <option value="Retail and Sales">Retail and Sales</option>
+                      <option value="Manufacturing">Manufacturing</option>
+                      <option value="Legal">Legal</option>
+                      <option value="Construction and Trades">
+                        Construction and Trades
+                      </option>
+                      <option value="Hospitality and Tourism">
+                        Hospitality and Tourism
+                      </option>
+                      <option value="Science and Research">
+                        Science and Research
+                      </option>
                     </select>
                   </div>
                 </div>
                 <div class="row gx-3 mb-3">
                   <div class="col-md-6">
                     <label class="small mb-1" for="country">
-                      Country
+                      Country<span className="text-danger">*</span>
                     </label>
-                    <input
-                      class="form-control"
+                    <select
+                      class="form-select"
+                      required
                       id="country"
+                      aria-label="Dropdown"
                       value={user.country}
                       onChange={(e) =>
                         setUser((prevUser) => ({
@@ -248,7 +281,25 @@ function ConsultantProfile() {
                           country: e.target.value,
                         }))
                       }
-                    />
+                    >
+                      <option value="Sri Lanka">Sri Lanka</option>
+                      <option value="United States">United States</option>
+                      <option value="United Kingdom">United Kingdom</option>
+                      <option value="Canada">Canada</option>
+                      <option value="Australia">Australia</option>
+                      <option value="India">India</option>
+                      <option value="China">China</option>
+                      <option value="Japan">Japan</option>
+                      <option value="Brazil">Brazil</option>
+                      <option value="Germany">Germany</option>
+                      <option value="Russia">Russia</option>
+                      <option value="France">France</option>
+                      <option value="Sweden">Sweden</option>
+                      <option value="Italy">Italy</option>
+                      <option value="Argentina">Argentina</option>
+                      <option value="Spain">Spain</option>
+                      <option value="Saudi Arabia">Saudi Arabia</option>
+                    </select>
                   </div>
                 </div>
                 <button
